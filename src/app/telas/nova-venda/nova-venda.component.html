@@ -1,0 +1,64 @@
+<div class="loadingSet" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="!isLoading" class="tela">
+  <table mat-table [dataSource]="dataSource" class="paddingLeftCol">
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Ações </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque">
+        <button mat-mini-fab color="warn" aria-label="remove" class="buttonAction" (click)="removerItem(element)">
+          <mat-icon>clear</mat-icon>
+        </button>
+
+      </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="item">
+      <th mat-header-cell *matHeaderCellDef> Cod </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque"> {{element.item}} </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef class="cabecalhoColunaEstoque"> Descrição </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque">
+        <p>{{element.description}}</p>
+        <p>{{element.additional}}</p>
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="items">
+      <th mat-header-cell *matHeaderCellDef> Quant. </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque"> {{element.items}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Preço unit.<br>e Total </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque"> {{element.price|currency:"BRL"}}<br>
+        {{element.totalPrice|currency:"BRL"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="additional">
+      <th mat-header-cell *matHeaderCellDef> Mais info </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque"> {{element.additional}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+  <span class="example-spacer"></span>
+  <mat-paginator id="matPaginatorVenda" #matPaginatorVenda [pageSizeOptions]="[5, 10, 20]" aria-label="paginação do estoque">
+  </mat-paginator>
+  <div class="buttons">
+    <span>
+      <p class="infoBotton"><b>Total</b></p>
+      <p class="infoBotton">{{valorTotal|currency:"BRL"}}</p>
+    </span>
+    <button mat-flat-button color="primary" (click)="exibirAlerta()">Novo item</button>
+    <button mat-flat-button color="accent" [disabled]="dataSource.data.length == 0" (click)="fecharCompra()">Fechar venda</button>
+  </div>
+
+</div>

@@ -1,0 +1,65 @@
+<div class="tela">
+  <div id="print-section2"></div>
+  <div id="print-section">
+
+      <!-- <pre> -->
+    <table>
+      <tr>
+        <td colspan="5" class="tdCenter"><span>MINHA LOJA</span></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="tdCenter"><span>MINHA LOJA LTDA.</span></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="tdCenter"><span>RUA NUMERO 3</span></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="tdCenter"><span>CNPJ 12.123.456/0001-22</span></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="tdCenter"><span>CUPOM FICAL ELETRONICO</span></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="tdCenter"><span>CPF/CNPJ CONSUM.: {{formataCPF(cpfCliente)}}</span></td>
+      </tr>
+      <tr>
+        <td class="tdLinha" colspan="5">........................................</td>
+      </tr>
+      <tr>
+        <td colspan="5">{{substring("#",3)+"|"}}{{substring("DESCRIÇÃO",13)+"|"}}{{substring("QTD.UN",6)+"|"}}{{substring("VL UNIT",7)+"|"}}{{substring("VL ITEM",7)}}</td>
+      </tr>
+      <tr>
+        <td class="tdLinha" colspan="5">........................................</td>
+      </tr>
+      <tr *ngFor="let item of dados">
+        <td colspan="5">{{substringItem(item.item, 3)}}|{{substring(item.description, 13)}}|{{substring(item.items, 6)}}|{{substringNumber(item.price, 7)}}|{{substringNumber(item.totalPrice, 7)}}</td>
+      </tr>
+      <tr><td colspan="5">{{substring("TOTAL R$", 8)}}{{substringNumber(valorTotal, 32)}}</td></tr>
+      <tr>
+        <td class="tdLinha" colspan="5">........................................</td>
+      </tr>
+      <tr><td colspan="5" class="tdCenter"><span>{{myDate | date: 'dd-MM-yyyy hh:mm:ss a': '' : 'pt-BR'}}</span></td>
+      </tr>
+      <tr>
+        <td colspan="5">........................................</td>
+      </tr>
+    </table>
+  <!-- </pre> -->
+  </div>
+  <span class="spacer"></span>
+  <!-- <span class="linhaButton">
+    <form class="item-form">
+      <mat-form-field class="item-full-width" appearance="fill">
+        <mat-label>Email para envio</mat-label>
+        <input type="email" autocomplete="off" matInput placeholder="Ex. teste@gmail.com" name="barcode"
+          [(ngModel)]="emailCliente">
+      </mat-form-field>
+    </form>
+  </span> -->
+  <span class="linhaButton">
+    <button mat-flat-button color="primary" (click)="enviarEmail()">Enviar Email</button>
+    <button mat-flat-button color="primary" [useExistingCss]="true" printSectionId="print-section" ngxPrint
+      (click)="imprimirCupom()">Imprimir</button>
+  </span>
+
+</div>

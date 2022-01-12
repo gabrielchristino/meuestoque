@@ -1,0 +1,61 @@
+<div class="loadingSet" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="!isLoading" class="tela">
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Ações </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque">
+
+        <button mat-mini-fab color="primary" aria-label="edit" class="buttonAction"
+          routerLink="/editaItem/{{element.barcode}}">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="warn" aria-label="remove" class="buttonAction" (click)="removerItem(element)">
+          <mat-icon>clear</mat-icon>
+        </button>
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef class="cabecalhoColunaEstoque"> Código e <br> Produto </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque">
+        <p>{{element.barcode}}<br>
+          {{element.description}}</p>
+        <p>{{element.additional}}</p>
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="items">
+      <th mat-header-cell *matHeaderCellDef> Quant.<br>Itens </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque"> {{element.items}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Preço </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque"> {{element.price|currency:"BRL"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="additional">
+      <th mat-header-cell *matHeaderCellDef> Mais info </th>
+      <td mat-cell *matCellDef="let element" class="colunaEstoque"> {{element.additional}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <span class="example-spacer"></span>
+  <div class="buttons">
+    <button mat-mini-fab color="accent" aria-label="edit" class="buttonFAB" (click)="adicionarItem()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" aria-label="paginação do estoque">
+    </mat-paginator>
+  </div>
+</div>

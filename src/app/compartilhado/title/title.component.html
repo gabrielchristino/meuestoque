@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Meu estoque</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button aria-label="abrir pagina inicial" routerLink="">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="abrir menu principal" [matMenuTriggerFor]="mainMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-menu #mainMenu="matMenu">
+      <button mat-menu-item aria-label="abrir menu estoque" [matMenuTriggerFor]="estoqueMenu">Estoque</button>
+      <button mat-menu-item aria-label="fazer nova venda" routerLink="/novaVenda">Nova venda</button>
+      <button mat-menu-item aria-label="consultar preço" (click)="exibirAlerta()">Consulta preço</button>
+    </mat-menu>
+
+    <mat-menu #estoqueMenu="matMenu">
+      <button mat-menu-item aria-label="ver todo estoque" routerLink="/listaEstoque">Ver tudo</button>
+      <button mat-menu-item aria-label="adicionar item" routerLink="/novoItem">Adicionar item</button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>

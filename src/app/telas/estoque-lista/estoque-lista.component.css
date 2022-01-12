@@ -1,0 +1,39 @@
+
+.loadingSet {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+table {
+  width: 100%;
+}
+.cabecalhoColunaEstoque {
+  text-align: left;
+}
+.colunaEstoque {
+  vertical-align: middle;
+  text-align: left;
+}
+.buttonAction {
+  display: block;
+}
+.buttonFAB {
+  display: block;
+  /* position: absolute; */
+  margin: 5px;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.tela{
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 70px);
+}
+.buttons {
+  display: flex;
+  justify-content: left;
+  background-color: #fff;
+}

@@ -1,0 +1,50 @@
+
+.loadingSet {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+table {
+  width: 100%;
+  max-height: calc(100% - 160px);
+}
+.cabecalhoColunaEstoque {
+  text-align: left;
+}
+.paddingLeftCol {
+  padding-left: 10px !important;
+}
+::ng-deep .cdk-header-cell {
+  padding-left: 10px !important;
+}
+::ng-deep .mat-cell {
+  padding-left: 10px !important;
+}
+.colunaEstoque {
+  vertical-align: middle;
+  text-align: left;
+}
+.buttonAction {
+  display: block;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.tela{
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 70px);
+}
+.infoBotton {
+  margin: 2px 12px 0 12px !important;
+  text-align: center;
+}
+button {
+  margin: 5px;
+}

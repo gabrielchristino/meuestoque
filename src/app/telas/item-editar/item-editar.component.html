@@ -1,0 +1,66 @@
+<div class="loadingSet" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="!isLoading" class="tela">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row>
+      <span>{{statusProduto}}</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <br>
+  <form class="item-form">
+    <div class="barcode-line">
+      <button mat-mini-fab color="primary" aria-label="edit" class="buttonAction" (click)="openScanner()">
+        <mat-icon>camera alt icon</mat-icon>
+      </button>
+
+      <mat-form-field class="item-full-width2" appearance="fill">
+        <mat-label>Código de barras</mat-label>
+        <input type="text" (keydown.enter)="salvarItem()" autocomplete="off" matInput placeholder="Ex. 123456789"
+          name="barcode" [(ngModel)]="itemProduto.barcode">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Produto</mat-label>
+      <input (keydown.enter)="salvarItem()" autocomplete="off" matInput placeholder="Ex. Produto" name="description"
+        [(ngModel)]="itemProduto.description">
+    </mat-form-field>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Info. adicional #1</mat-label>
+      <input (keydown.enter)="salvarItem()" autocomplete="off" matInput placeholder="Ex. Mais info" name="additional"
+        [(ngModel)]="itemProduto.additional">
+    </mat-form-field>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Info. adicional #2</mat-label>
+      <input (keydown.enter)="salvarItem()" autocomplete="off" matInput placeholder="Ex. Mais info" name="additional2"
+        [(ngModel)]="itemProduto.additional2">
+    </mat-form-field>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Info. adicional #3</mat-label>
+      <input (keydown.enter)="salvarItem()" autocomplete="off" matInput placeholder="Ex. Mais info" name="additional3"
+        [(ngModel)]="itemProduto.additional3">
+    </mat-form-field>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Quantidade de itens em estoque</mat-label>
+      <input (keydown.enter)="salvarItem()" autocomplete="off" type="number" matInput placeholder="Ex. 10" name="items"
+        [(ngModel)]="itemProduto.items">
+    </mat-form-field>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Preço unitário</mat-label>
+      <span matPrefix>R$ &nbsp;</span>
+      <input (keydown.enter)="salvarItem()" autocomplete="off" type="number" min="0.00" step='0.01' matInput
+        placeholder="Ex. R$10,00" name="price" [(ngModel)]="itemProduto.price">
+    </mat-form-field>
+  </form>
+  <span class="spacer"></span>
+  <div class="buttons">
+    <button mat-flat-button color="accent" (click)="salvarItem()">Salvar</button>
+  </div>
+
+</div>

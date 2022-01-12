@@ -1,0 +1,13 @@
+<div mat-dialog-content>{{externalData.mensagem}}</div>
+<br>
+<form class="item-form">
+  <mat-form-field class="item-full-width" appearance="fill">
+    <mat-label>{{externalData.campo}}</mat-label>
+    <input [type]="externalData.tipo" autocomplete="off" matInput [placeholder]="externalData.exemplo" name="barcode" (keyup.enter)="enviar()" [(ngModel)]="valor">
+  </mat-form-field>
+</form>
+<div mat-dialog-actions>
+  <button id="btnConsultar" color="primary" mat-flat-button [mat-dialog-close]="valor" [disabled]="!valor || valor.length == 0" >{{externalData.btn1 == ""?"Ok":valor}}{{externalData.btn1}}</button>
+  <button id="btnFechar" mat-flat-button [mat-dialog-close]="externalData.btn2.valor">{{externalData.btn2.texto}}</button>
+</div>
+

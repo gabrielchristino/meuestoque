@@ -1,0 +1,58 @@
+.tela {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: monospace;
+  white-space: pre;
+  height: calc(100% - 70px);
+}
+.imageCumpom {
+  max-width: 100%;
+}
+table {
+  width: 100%;
+  border-spacing: 0px;
+}
+td {
+  padding: 0;
+}
+th {
+  text-align: right;
+  padding: 0px;
+}
+.tdLinha {
+  line-height: 0px !important;
+  vertical-align: top;
+  padding: 0;
+  padding-bottom: 3px;
+  /* border-bottom: 1px dotted black; */
+}
+.tdCenter {
+  text-align: center;
+  padding: 0px;
+}
+.tdLeft {
+  text-align: left;
+  padding: 0px;
+}
+.tdRight {
+  text-align: right;
+  padding: 0px;
+}
+td {
+  padding: 2px;
+  text-align: right;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.linhaButton {
+  justify-content: center;
+}
+button {
+  margin: 5px;
+}
+pre {
+  margin: 0 !important;
+}
