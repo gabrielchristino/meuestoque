@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogConsultaComponent } from '../../dialog/dialog-consulta/dialog-consulta.component';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-home-page',
@@ -11,6 +12,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    public auth: AuthService
     ) { }
 
   ngOnInit(): void {

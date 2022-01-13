@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: 'loadPage', component: LoadPageComponent },
   { path: 'cupomPage', component: CupomComponent },
   { path: 'editaItem/:barcode', component: ItemEditarComponent },
-  { path: 'login', component: LoginPageComponent },
 ];
 
 @NgModule({

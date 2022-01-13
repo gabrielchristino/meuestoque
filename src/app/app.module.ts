@@ -28,6 +28,7 @@ import { ItemEditarComponent } from './telas/item-editar/item-editar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogConfirmComponent } from './dialog/dialog-confirm/dialog-confirm.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -41,10 +42,13 @@ import { DialogValorComponent } from './dialog/dialog-valor/dialog-valor.compone
 import { CupomComponent } from './telas/cupom/cupom.component';
 import { NgxPrintModule } from 'ngx-print';
 import { HomePageComponent } from './telas/home-page/home-page.component';
+import { LoginPageComponent } from './telas/login-page/login-page.component';
 
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
-import { LoginPageComponent } from './telas/login-page/login-page.component';
+
+import { AuthModule } from '@auth0/auth0-angular';
+
 
 registerLocaleData(localePT);
 
@@ -82,9 +86,16 @@ registerLocaleData(localePT);
     MatMenuModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
 
     NgxPrintModule,
     BarcodeScannerLivestreamModule,
+
+
+    AuthModule.forRoot({
+      domain: 'dev-cnm7hzu8.us.auth0.com',
+      clientId: 'jLYq1Q0169PRu0Vs0PZycnqYHyG9cNJi'
+    }),
 
     FormsModule,
     HttpClientModule,
@@ -99,7 +110,9 @@ registerLocaleData(localePT);
     })
 
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

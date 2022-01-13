@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --ssl",
+    "publish": ".\\publish.bat",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -21,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@angular/service-worker": "~12.2.0",
+    "@auth0/auth0-angular": "^1.8.2",
     "@ericblade/quagga2": "^1.4.2",
     "html-to-image": "^1.9.0",
     "ngx-barcode-scanner": "^0.3.0",

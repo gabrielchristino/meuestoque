@@ -155,14 +155,13 @@ export class novaVendaComponent implements OnInit {
             dadosItem[0].items = Number(dadosItem[0].items) - Number(itemLista.items);
             this.estoqueService.sendPutRequest(dadosItem[0])
             .subscribe((item:estoqueItens)=>{
-              console.log('ok');
+              // console.log('ok');
 
             }, (error:string)=>{
-              console.log('nok');
+              // console.log('nok');
             });
           });
         });
-        console.log('go');
 
         this.router.navigate([`/cupomPage`], { relativeTo: this.route, state: { venda: this.itensLista, valorTotal: this.valorTotal, cpf: resultado } });
 

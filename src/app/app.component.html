@@ -1,2 +1,7 @@
+
 <app-title></app-title>
-<router-outlet></router-outlet>
+<div class="loadingSet" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<router-outlet *ngIf="isAuthenticated && !isLoading"></router-outlet>
+<app-login-page (click)="auth.loginWithRedirect()" *ngIf="!isAuthenticated && !isLoading">Log in</app-login-page>

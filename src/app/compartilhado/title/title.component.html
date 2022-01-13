@@ -2,10 +2,10 @@
   <mat-toolbar-row>
     <span>Meu estoque</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button aria-label="abrir pagina inicial" routerLink="">
+    <button mat-icon-button aria-label="abrir pagina inicial" routerLink=""  *ngIf="(auth.isAuthenticated$ | async) === true">
       <mat-icon>home</mat-icon>
     </button>
-    <button mat-icon-button aria-label="abrir menu principal" [matMenuTriggerFor]="mainMenu">
+    <button mat-icon-button aria-label="abrir menu principal" [matMenuTriggerFor]="mainMenu"  *ngIf="(auth.isAuthenticated$ | async) === true">
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -13,6 +13,7 @@
       <button mat-menu-item aria-label="abrir menu estoque" [matMenuTriggerFor]="estoqueMenu">Estoque</button>
       <button mat-menu-item aria-label="fazer nova venda" routerLink="/novaVenda">Nova venda</button>
       <button mat-menu-item aria-label="consultar preço" (click)="exibirAlerta()">Consulta preço</button>
+      <button mat-menu-item aria-label="consultar preço" (click)="lougout()" *ngIf="(auth.isAuthenticated$ | async) === true">Logout</button>
     </mat-menu>
 
     <mat-menu #estoqueMenu="matMenu">
