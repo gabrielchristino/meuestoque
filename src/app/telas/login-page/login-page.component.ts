@@ -19,5 +19,8 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+  //client id
+  //803165754242-rnmjlr4uogg8cgoht3o7u0irrkhic1mg.apps.googleusercontent.com
+  //client secret
+  //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
 }

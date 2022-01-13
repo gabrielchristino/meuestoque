@@ -49,6 +49,11 @@ import localePT from '@angular/common/locales/pt';
 
 import { AuthModule } from '@auth0/auth0-angular';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+
 
 registerLocaleData(localePT);
 
@@ -92,6 +97,10 @@ registerLocaleData(localePT);
     BarcodeScannerLivestreamModule,
 
 
+    ReactiveFormsModule,
+    SocialLoginModule,
+
+
     AuthModule.forRoot({
       domain: 'dev-cnm7hzu8.us.auth0.com',
       clientId: 'jLYq1Q0169PRu0Vs0PZycnqYHyG9cNJi'
@@ -111,7 +120,21 @@ registerLocaleData(localePT);
 
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '803165754242-rnmjlr4uogg8cgoht3o7u0irrkhic1mg.apps.googleusercontent.com'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })

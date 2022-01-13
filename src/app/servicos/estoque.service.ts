@@ -17,7 +17,8 @@ export class EstoqueService {
 
   private _listaCompra = new MatTableDataSource<estoqueItens>();
   private _compraFechada = false;
-  private _mensagem: string = '';
+  private _usuario: any;
+  private _loja: any;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -32,11 +33,11 @@ export class EstoqueService {
     ) { }
 
   public sendGetRequest(): Observable<any> {
-    return this.httpClient.get(this.urlBase + 'estoque', this.httpOptions);
+    return this.httpClient.get(this.urlBase + 'estoque' + `?q={"idLoja":"${this.usuario.idLoja}"}`, this.httpOptions);
   }
 
   public sendGetRequestByCode(barcode: string): Observable<any> {
-    return this.httpClient.get(this.urlBase + 'estoque' + `?q={"barcode": "${barcode}"}`, this.httpOptions);
+    return this.httpClient.get(this.urlBase + 'estoque' + `?q={"barcode":"${barcode}","idLoja":"${this.usuario.idLoja}"}`, this.httpOptions);
   }
 
   public sendDeleteRequest(idProduto: string): Observable<any> {
@@ -78,15 +79,27 @@ export class EstoqueService {
     this._compraFechada = compraFechada;
   }
 
-  get mensagem() {
-    return this._mensagem;
+  get usuario() {
+    return this._usuario;
   }
 
-  set mensagem(mensagem: string) {
-    this._mensagem = mensagem;
+  set usuario(usuario: any) {
+    this._usuario = usuario;
+  }
+
+  get loja() {
+    return this._loja;
+  }
+
+  set loja(loja: any) {
+    this._loja = loja;
   }
 
   public sendGetUserRequest(userMail: string): Observable<any> {
     return this.httpClient.get(this.urlBase + 'controle' + `?q={"email":"${userMail}"}`, this.httpOptions);
+  }
+
+  public sendGetLojaRequest(): Observable<any> {
+    return this.httpClient.get(this.urlBase + 'loja' + `?q={"_id":"${this.usuario.idLoja}"}`, this.httpOptions);
   }
 }

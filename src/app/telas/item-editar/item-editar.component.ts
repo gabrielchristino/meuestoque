@@ -121,7 +121,8 @@ export class ItemEditarComponent implements OnInit, OnChanges {
       additional2: '',
       additional3: '',
       items: 0,
-      price: 0.00
+      price: 0.00,
+      idLoja: this.estoqueService.usuario.idLoja
     };
   }
 
