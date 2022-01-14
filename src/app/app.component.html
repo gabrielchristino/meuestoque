@@ -1,10 +1,10 @@
-
 <app-title></app-title>
 <div class="loadingSet" *ngIf="isLoading">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
 <router-outlet *ngIf="isAuthenticated && !isLoading"></router-outlet>
-<app-login-page (click)="auth.loginWithRedirect()" *ngIf="!isAuthenticated && !isLoading">Log in</app-login-page>
+<app-login-page (click)="auth.loginWithRedirect()" *ngIf="!isAuthenticated && !isLoading && !startSignup">Log in</app-login-page>
+<app-cadastro-usuario-loja *ngIf="startSignup"></app-cadastro-usuario-loja>
 <!-- <div class="container" style="max-width: 550px">
   <h2 class="text-center mb-5">Angular Login with Google</h2>
 {{isLoggedin}}

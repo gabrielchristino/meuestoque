@@ -53,7 +53,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
-
+import { CadastroUsuarioLojaComponent } from './telas/cadastro-usuario-loja/cadastro-usuario-loja.component';
+import { DialogQrcodeComponent } from './dialog/dialog-qrcode/dialog-qrcode.component';
+import { QrCodeModule } from 'ng-qrcode';
+import { NgQrScannerModule } from 'angular2-qrscanner';
 
 registerLocaleData(localePT);
 
@@ -72,7 +75,9 @@ registerLocaleData(localePT);
     DialogValorComponent,
     CupomComponent,
     HomePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    CadastroUsuarioLojaComponent,
+    DialogQrcodeComponent
   ],
   imports: [
 
@@ -96,6 +101,8 @@ registerLocaleData(localePT);
     NgxPrintModule,
     BarcodeScannerLivestreamModule,
 
+    QrCodeModule,
+    NgQrScannerModule,
 
     ReactiveFormsModule,
     SocialLoginModule,

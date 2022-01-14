@@ -13,6 +13,7 @@
       <button mat-menu-item aria-label="abrir menu estoque" [matMenuTriggerFor]="estoqueMenu">Estoque</button>
       <button mat-menu-item aria-label="fazer nova venda" routerLink="/novaVenda">Nova venda</button>
       <button mat-menu-item aria-label="consultar preço" (click)="exibirAlerta()">Consulta preço</button>
+      <button mat-menu-item aria-label="meu cadastro" routerLink="/cadastro">Meu cadastros</button>
       <button mat-menu-item aria-label="consultar preço" (click)="lougout()" *ngIf="(auth.isAuthenticated$ | async) === true">Logout</button>
     </mat-menu>
 

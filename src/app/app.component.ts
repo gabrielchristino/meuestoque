@@ -6,6 +6,7 @@ import { EstoqueService } from './servicos/estoque.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { UtilsService } from './servicos/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   public loginForm!: FormGroup;
   public socialUser!: SocialUser;
   public isLoggedin: boolean = false;
+  public startSignup: boolean = false;
 
 
   public isLoading: boolean = false;
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     public estoqueService: EstoqueService,
     private _snackBar: MatSnackBar,
-
+    private utilsService: UtilsService,
     private formBuilder: FormBuilder,
     private socialAuthService: SocialAuthService
   ) {
@@ -41,6 +43,7 @@ export class AppComponent implements OnInit {
           this.isLoading = true;
           this.auth.user$
             .subscribe((user: any) => {
+              this.estoqueService.user = user;
               this.estoqueService.sendGetUserRequest(user.email)
                 .subscribe((usuario: any[]) => {
                   if (usuario.length !== 0) {
@@ -53,8 +56,9 @@ export class AppComponent implements OnInit {
                       });
                   }
                   if (usuario.length === 0) {
-                    this._snackBar.open('Usuário não cadastrado, contacte o administrador.', 'Ok');
-                    this.auth.logout({ localOnly: true });
+                    this.utilsService.showError('Usuário não cadastrado, faça seu cadastro.');
+                    this.startSignup = true;
+                    // this.auth.logout({ localOnly: true });
                     this.isLoading = false;
                   }
                 });

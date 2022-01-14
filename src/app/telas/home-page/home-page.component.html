@@ -3,7 +3,8 @@
     <img class="profilepic" [src]="user.picture">
     <h1>{{user.given_name || user.nickname}}</h1>
     <h2>{{user.email}}</h2>
-    <h2>{{estoqueService.loja.name}}</h2>
+    <h3>{{estoqueService.loja.name}}</h3>
+    <h4>{{estoqueService.loja.description}}</h4>
   </div>
   <span class="spacer"></span>
   <div class="linhaButton">

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { estoqueItens } from '../compartilhado/models/estoqueItens.model';
+import { loja } from '../compartilhado/models/loja.model';
+import { usuario } from '../compartilhado/models/usuario.model';
 
 export const APP_ID = "estoque-vnaxc";
 
@@ -18,6 +20,7 @@ export class EstoqueService {
   private _listaCompra = new MatTableDataSource<estoqueItens>();
   private _compraFechada = false;
   private _usuario: any;
+  private _user: any;
   private _loja: any;
 
   private httpOptions = {
@@ -31,7 +34,7 @@ export class EstoqueService {
   constructor(
     private httpClient: HttpClient
     ) { }
-
+////consuta estoque
   public sendGetRequest(): Observable<any> {
     return this.httpClient.get(this.urlBase + 'estoque' + `?q={"idLoja":"${this.usuario.idLoja}"}`, this.httpOptions);
   }
@@ -51,7 +54,7 @@ export class EstoqueService {
   public sendPostRequest(produto: estoqueItens): Observable<any> {
     return this.httpClient.post(this.urlBase + 'estoque', JSON.stringify(produto), this.httpOptions);
   }
-
+////envia email
   public sendEmail(cupom: string, email: string): Observable<any> {
     const reqEmail = {
       'to': email,
@@ -62,7 +65,31 @@ export class EstoqueService {
     }
     return this.httpClient.post(this.urlBaseMail, JSON.stringify(reqEmail), this.httpOptions);
   }
+////consulta usuario
+  public sendGetUserRequest(userMail: string): Observable<any> {
+    return this.httpClient.get(this.urlBase + 'controle' + `?q={"email":"${userMail}"}`, this.httpOptions);
+  }
 
+  public sendPutUserRequest(usuario: usuario): Observable<any> {
+    return this.httpClient.put(this.urlBase + 'controle' + `/${usuario._id}`, JSON.stringify(usuario), this.httpOptions);
+  }
+
+  public sendPostUserRequest(usuario: usuario): Observable<any> {
+    return this.httpClient.post(this.urlBase + 'controle', JSON.stringify(usuario), this.httpOptions);
+  }
+////consulta loja
+  public sendGetLojaRequest(idLoja: string = ''): Observable<any> {
+    return this.httpClient.get(this.urlBase + 'loja' + `?q={"_id":"${this.usuario?.idLoja||idLoja}"}`, this.httpOptions);
+  }
+
+  public sendPutLojaRequest(loja: loja): Observable<any> {
+    return this.httpClient.put(this.urlBase + 'loja' + `/${loja._id}`, JSON.stringify(loja), this.httpOptions);
+  }
+
+  public sendPostLojaRequest(loja: loja): Observable<any> {
+    return this.httpClient.post(this.urlBase + 'loja', JSON.stringify(loja), this.httpOptions);
+  }
+////variaveis do sistema
   get listaCompra() {
     return this._listaCompra;
   }
@@ -95,11 +122,11 @@ export class EstoqueService {
     this._loja = loja;
   }
 
-  public sendGetUserRequest(userMail: string): Observable<any> {
-    return this.httpClient.get(this.urlBase + 'controle' + `?q={"email":"${userMail}"}`, this.httpOptions);
+  get user() {
+    return this._user;
   }
 
-  public sendGetLojaRequest(): Observable<any> {
-    return this.httpClient.get(this.urlBase + 'loja' + `?q={"_id":"${this.usuario.idLoja}"}`, this.httpOptions);
+  set user(user: any) {
+    this._user = user;
   }
 }

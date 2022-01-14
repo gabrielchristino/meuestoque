@@ -1,0 +1,50 @@
+<div class="loadingSet" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<br>
+<div *ngIf="!isLoading" class="tela">
+  <form class="item-form">
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Seu nome</mat-label>
+      <input (keydown.enter)="salvarItem()" type="text" autocomplete="off" matInput placeholder="Ex. Gabriel Santos"
+        name="nameUser" [(ngModel)]="dadosUsuario.name">
+    </mat-form-field>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Seu email</mat-label>
+      <input (keydown.enter)="salvarItem()" type="email" autocomplete="off" matInput
+        placeholder="Ex. gabriel.santos@email.com" name="email" [(ngModel)]="dadosUsuario.email">
+    </mat-form-field>
+
+    <p class="item-full-width" *ngIf="!atualizarCadastro">**Se você vai fazer parte de um comércio que já existe,
+      verifique com alguém que já faça parte e informe o ID aqui, se não, pode deixar em branco.</p>
+    <p class="item-full-width" *ngIf="atualizarCadastro">**Se mais gente for fazer parte do seu comércio, compartilhe
+      este ID com ela.</p>
+    <div class="barcode-line">
+      <button mat-mini-fab color="primary" aria-label="edit" class="buttonAction" (click)="exibirQrCode()">
+        <mat-icon>share</mat-icon>
+      </button>
+      <mat-form-field class="item-full-width2" appearance="fill">
+        <mat-label>ID do comércio</mat-label>
+        <input (keydown.enter)="salvarItem()" (blur)="carregarLoja()" type="text" autocomplete="off" matInput
+          placeholder="ID do comércio" name="_id" [(ngModel)]="dadosLoja._id">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Nome do seu comércio</mat-label>
+      <input (keydown.enter)="salvarItem()" [disabled]="lojaExistente" type="text" autocomplete="off" matInput
+        placeholder="Ex. Minha Lojinha" name="nameLoja" [(ngModel)]="dadosLoja.name">
+    </mat-form-field>
+
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Breve descrição do seu Comércio</mat-label>
+      <input (keydown.enter)="salvarItem()" [disabled]="lojaExistente" type="text" autocomplete="off" matInput
+        placeholder="Ex. Minha Lojinha" name="description" [(ngModel)]="dadosLoja.description">
+    </mat-form-field>
+  </form>
+  <span class="spacer"></span>
+  <div class="buttons">
+    <button mat-flat-button color="accent" (click)="salvarItem()">Salvar</button>
+  </div>
+</div>
