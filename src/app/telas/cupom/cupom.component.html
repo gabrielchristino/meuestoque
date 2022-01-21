@@ -5,28 +5,22 @@
       <!-- <pre> -->
     <table>
       <tr>
-        <td colspan="5" class="tdCenter"><span>MINHA LOJA</span></td>
+        <td colspan="5" class="tdCenter"><span>{{estoqueService.loja.name}}</span></td>
       </tr>
       <tr>
-        <td colspan="5" class="tdCenter"><span>MINHA LOJA LTDA.</span></td>
-      </tr>
-      <tr>
-        <td colspan="5" class="tdCenter"><span>RUA NUMERO 3</span></td>
-      </tr>
-      <tr>
-        <td colspan="5" class="tdCenter"><span>CNPJ 12.123.456/0001-22</span></td>
+        <td colspan="5" class="tdCenter"><span>{{estoqueService.loja.cnpj}}</span></td>
       </tr>
       <tr>
         <td colspan="5" class="tdCenter"><span>CUPOM FICAL ELETRONICO</span></td>
       </tr>
-      <tr>
+      <tr *ngIf="cpfCliente.length>11">
         <td colspan="5" class="tdCenter"><span>CPF/CNPJ CONSUM.: {{formataCPF(cpfCliente)}}</span></td>
       </tr>
       <tr>
         <td class="tdLinha" colspan="5">........................................</td>
       </tr>
       <tr>
-        <td colspan="5">{{substring("#",3)+"|"}}{{substring("DESCRIÇÃO",13)+"|"}}{{substring("QTD.UN",6)+"|"}}{{substring("VL UNIT",7)+"|"}}{{substring("VL ITEM",7)}}</td>
+        <td colspan="5">{{substring("#",3)+"|"}}{{substring("DESCRICAO",13)+"|"}}{{substring("QTD.UN",6)+"|"}}{{substring("VL UNIT",7)+"|"}}{{substring("VL ITEM",7)}}</td>
       </tr>
       <tr>
         <td class="tdLinha" colspan="5">........................................</td>
@@ -51,15 +45,15 @@
     <form class="item-form">
       <mat-form-field class="item-full-width" appearance="fill">
         <mat-label>Email para envio</mat-label>
-        <input type="email" autocomplete="off" matInput placeholder="Ex. teste@gmail.com" name="barcode"
+        <input type="email" autocomplete="off" matInput placeholder="Ex. teste@gmail.com" name="email"
           [(ngModel)]="emailCliente">
       </mat-form-field>
     </form>
-  </span> -->
+  </span>
   <span class="linhaButton">
     <button mat-flat-button color="primary" (click)="enviarEmail()">Enviar Email</button>
     <button mat-flat-button color="primary" [useExistingCss]="true" printSectionId="print-section" ngxPrint
       (click)="imprimirCupom()">Imprimir</button>
-  </span>
+  </span> -->
 
 </div>

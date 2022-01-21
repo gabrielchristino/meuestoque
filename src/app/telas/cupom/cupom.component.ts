@@ -17,7 +17,8 @@ export class CupomComponent implements OnInit, AfterViewInit {
   emailCliente: string = '';
   dados: any;
   valorTotal: any;
-  cpfCliente: any;
+  cpfCliente: any = '';
+  telefoneCliente: any;
   myDate = new Date();
   isLoading: boolean = false;
   cupomArquivo: any;
@@ -25,7 +26,7 @@ export class CupomComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private estoqueService: EstoqueService,
+    public estoqueService: EstoqueService,
     public dialog: MatDialog,
     private utilsService: UtilsService
   ) {
@@ -47,7 +48,6 @@ export class CupomComponent implements OnInit, AfterViewInit {
           this.cupomArquivo = dataUrl;
         });
 
-
       htmlToImage.toPng(document.getElementById('print-section') || htmlVazio)
         .then((dataUrl) => {
           (document.getElementById('print-section') || htmlVazio).innerHTML =
@@ -58,9 +58,16 @@ export class CupomComponent implements OnInit, AfterViewInit {
         max-width: 600px;
         display: block;'>
         </div>
-        `
-            ;
+        `;
         });
+
+        // htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio)
+        // .then((blob) => {
+
+        // });
+
+
+
     }, 0);
 
   }
@@ -79,7 +86,7 @@ export class CupomComponent implements OnInit, AfterViewInit {
     const filesArray = [
       new File(
         [this.cupomArquivo],
-        'meme.jpg',
+        'cupomCliente.jpg',
         {
           type: "image/jpeg",
           lastModified: new Date().getTime()
@@ -165,4 +172,15 @@ export class CupomComponent implements OnInit, AfterViewInit {
     cpf = cpf.replace(/[^\d]/g, "");
     return cpf.length < 12 ? cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") : cpf.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
   }
+
+  removeAcento (texto:string):string {
+    texto = texto.toLowerCase();
+    texto = texto.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    texto = texto.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    texto = texto.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    texto = texto.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    texto = texto.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    texto = texto.replace(new RegExp('[Ç]','gi'), 'c');
+    return texto;
+}
 }
