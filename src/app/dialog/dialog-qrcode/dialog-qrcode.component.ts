@@ -12,17 +12,17 @@ export class DialogQrcodeComponent implements OnInit {
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) data: any,
     private dialogRef: MatDialogRef<DialogQrcodeComponent>,
-    ) {
-      this.textoQr = data;
-    }
+  ) {
+    this.textoQr = data;
+  }
 
-    codigo: string = '';
+  codigo: string = '';
   ngOnInit(): void {
   }
 
   onCodeResult(resultString: any) {
     this.codigo = resultString;
-    console.log(resultString);
+    this.dialogRef.close(this.codigo);
   }
 
 }

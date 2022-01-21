@@ -42,26 +42,39 @@ export class CadastroUsuarioLojaComponent implements OnInit {
     this.atualizarCadastro = this.estoqueService.loja !== undefined && this.estoqueService.usuario !== undefined;
   }
 
-  exibirQrCode(){
+  exibirQrCode() {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = this.dadosLoja._id;
 
-    this.dialog.open(DialogQrcodeComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogQrcodeComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      (data) => {
+        if (data !== undefined && data !== '') {
+          this.dadosLoja._id = data;
+          this.carregarLoja();
+        }
+      });
   }
 
   carregarLoja() {
-    this.estoqueService.sendGetLojaRequest(this.dadosLoja._id)
-    .subscribe((loja: loja[])=>{
-      if(loja.length > 0 ) {
-        this.dadosLoja = loja[0];
-        this.lojaExistente = true;
-      } else {
-        this.dadosLoja._id = '';
-      }
-    });
+    if (this.dadosLoja._id !== undefined && this.dadosLoja._id !== '') {
+      this.isLoading = true;
+      this.estoqueService.sendGetLojaRequest(this.dadosLoja._id)
+        .subscribe((loja: loja[]) => {
+          if (loja.length > 0) {
+            this.dadosLoja = loja[0];
+            this.lojaExistente = true;
+            this.isLoading = false;
+          } else {
+            this.dadosLoja._id = '';
+            this.isLoading = false;
+          }
+        });
+    }
   }
 
   salvarItem() {
@@ -76,7 +89,7 @@ export class CadastroUsuarioLojaComponent implements OnInit {
               this.utilsService.showError('Cadastro Atualizado com sucesso.', 'logoff');
             });
         });
-    } else if(this.lojaExistente){
+    } else if (this.lojaExistente) {
       this.dadosUsuario.idLoja = this.dadosLoja._id;
       this.estoqueService.sendPostUserRequest(this.dadosUsuario)
         .subscribe((usuario) => {

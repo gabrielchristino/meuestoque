@@ -1,12 +1,4 @@
 <qr-code [value]="textoQr" size="200" errorCorrectionLevel="M"></qr-code>
-<qr-scanner
-   [debug]="true"
-   [canvasWidth]="640"
-   [canvasHeight]="480"
-   [stopAfterScan]="true"
-   [updateTime]="500"
-   (onRead)="onCodeResult($event)"></qr-scanner>
-{{codigo|json}}
 <div mat-dialog-actions>
   <button color="primary" mat-flat-button mat-dialog-close>Fechar</button>
 </div>

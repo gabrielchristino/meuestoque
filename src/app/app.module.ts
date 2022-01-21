@@ -56,7 +56,8 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { CadastroUsuarioLojaComponent } from './telas/cadastro-usuario-loja/cadastro-usuario-loja.component';
 import { DialogQrcodeComponent } from './dialog/dialog-qrcode/dialog-qrcode.component';
 import { QrCodeModule } from 'ng-qrcode';
-import { NgQrScannerModule } from 'angular2-qrscanner';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { CookieService } from 'ngx-cookie-service';
 
 registerLocaleData(localePT);
 
@@ -100,9 +101,8 @@ registerLocaleData(localePT);
 
     NgxPrintModule,
     BarcodeScannerLivestreamModule,
-
+    ZXingScannerModule,
     QrCodeModule,
-    NgQrScannerModule,
 
     ReactiveFormsModule,
     SocialLoginModule,
@@ -127,6 +127,7 @@ registerLocaleData(localePT);
 
   ],
   providers: [
+    CookieService,
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
     {
       provide: 'SocialAuthServiceConfig',

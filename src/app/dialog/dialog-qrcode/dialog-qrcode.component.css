@@ -1,3 +1,7 @@
 .mat-dialog-actions {
   justify-content: center;
 }
+
+.item-full-width {
+  width: 100%;
+}

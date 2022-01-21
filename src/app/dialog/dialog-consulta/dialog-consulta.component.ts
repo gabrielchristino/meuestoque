@@ -16,7 +16,7 @@ import { UtilsService } from 'src/app/servicos/utils.service';
 export class DialogConsultaComponent implements OnInit, AfterViewInit {
 
   externalData: any;
-  desabilitarBotaoPesquisar : boolean = false;
+  desabilitarBotaoPesquisar: boolean = false;
 
   constructor(
     private estoqueService: EstoqueService,
@@ -58,7 +58,7 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
                   }
                   this.dialogRef.close(resultado[0]);
                   //if (this.externalData === 'consulta2')
-                } else  {
+                } else {
                   this.mensagem = 'Tente novamente...';
                   this.barcode = '';
                   this.desabilitarBotaoPesquisar = false;
