@@ -5,6 +5,14 @@
     <mat-label>Código de barras</mat-label>
     <input type="number" autocomplete="off" matInput placeholder="Ex. 123456789" name="barcode" (keyup.enter)="consultar()" [(ngModel)]="barcode">
   </mat-form-field>
+  <!-- <mat-form-field class="item-full-width" appearance="fill">
+    <mat-label>median</mat-label>
+    <input type="number" step="0.01" autocomplete="off" matInput name="median" [(ngModel)]="median">
+  </mat-form-field>
+  <mat-form-field class="item-full-width" appearance="fill">
+    <mat-label>threshold</mat-label>
+    <input type="number" step="0.01" autocomplete="off" matInput name="threshold" [(ngModel)]="threshold">
+  </mat-form-field> -->
 </form>
 <div mat-dialog-actions>
   <button id="btnConsultar" *ngIf="externalData != 'retornaBarcode'" color="primary" mat-flat-button (click)="consultar()"  [disabled]="!barcode || barcode.length == 0 || desabilitarBotaoPesquisar" >Pesquisar</button>
@@ -14,6 +22,13 @@
 </div>
 <br>
 <div class="barcode-scanner">
-<barcode-scanner-livestream type="ean" (valueChanges)="onValueChanges($event)" (started)="(onStarted)">
+  <!-- <barcode-scanner-livestream-overlay [config]="config" type="ean" (valueChanges)="onValueChanges($event)" (started)="(onStarted)">
+
+  </barcode-scanner-livestream-overlay> -->
+<barcode-scanner-livestream [config]="config"
+ [type]="['code_128', 'code_39', 'ean_8', 'ean']"
+ (valueChanges)="onValueChanges($event)" (started)="(onStarted)"
+ [errorFilter]="{ median: median, threshold: threshold }">
+ <!-- [errorFilter]="{ median: median, threshold: threshold }" -->
 </barcode-scanner-livestream>
 </div>
