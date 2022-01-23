@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
+// import { AuthService } from '@auth0/auth0-angular';
+import { SocialAuthService } from 'angularx-social-login';
 import { DialogErrorComponent } from '../dialog/dialog-error/dialog-error.component';
 
 @Injectable({
@@ -13,7 +14,8 @@ export class UtilsService {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    public auth: AuthService,
+    // public auth: AuthService,
+    private socialAuthService: SocialAuthService
   ) { }
 
 
@@ -28,10 +30,11 @@ export class UtilsService {
     dialogRef.afterClosed().subscribe(
       data => {
         if (data && novaRota !== 'logoff') {
-          this.router.navigate([`/${novaRota}`], { relativeTo: this.route });
+          this.router.navigate([`/${novaRota}`], { relativeTo: this.route, skipLocationChange: true });
         }
         if (data && novaRota === 'logoff') {
-          this.auth.logout();
+          // this.auth.logout();
+          this.socialAuthService.signOut();
         }
       });
   }

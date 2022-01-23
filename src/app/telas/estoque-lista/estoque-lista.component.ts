@@ -21,7 +21,7 @@ export class EstoqueListaComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private estoqueService: EstoqueService,
+    public estoqueService: EstoqueService,
     private route: ActivatedRoute,
     private router: Router,
     private utilsService: UtilsService
@@ -88,7 +88,7 @@ export class EstoqueListaComponent implements OnInit {
   }
 
   adicionarItem() {
-    this.router.navigate([`/novoItem`], { relativeTo: this.route });
+    this.router.navigate([`/novoItem`], { relativeTo: this.route, skipLocationChange: true });
   }
 
 }

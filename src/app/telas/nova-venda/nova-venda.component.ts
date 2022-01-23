@@ -163,7 +163,7 @@ export class novaVendaComponent implements OnInit {
           });
         });
 
-        this.router.navigate([`/cupomPage`], { relativeTo: this.route, state: { venda: this.itensLista, valorTotal: this.valorTotal, cpf: resultado } });
+        this.router.navigate([`/cupomPage`], { relativeTo: this.route, skipLocationChange: true, state: { venda: this.itensLista, valorTotal: this.valorTotal, cpf: resultado } });
 
       },
       error => {

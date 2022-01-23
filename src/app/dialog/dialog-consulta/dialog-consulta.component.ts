@@ -81,7 +81,7 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
               .subscribe((resultado: estoqueItens[]) => {
                 if (resultado && resultado.length > 0 && resultado[0].barcode && resultado[0].barcode !== '' && resultado[0].barcode !== undefined) {
                   if (this.externalData === 'consulta') {
-                    this.router.navigate([`/editaItem/${this.barcode}`], { relativeTo: this.route });
+                    this.router.navigate([`/editaItem/${this.barcode}`], { relativeTo: this.route, skipLocationChange: true });
                   }
                   this.dialogRef.close(resultado[0]);
                   //if (this.externalData === 'consulta2')

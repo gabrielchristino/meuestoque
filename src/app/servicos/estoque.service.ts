@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { estoqueItens } from '../compartilhado/models/estoqueItens.model';
 import { loja } from '../compartilhado/models/loja.model';
@@ -32,7 +33,9 @@ export class EstoqueService {
 
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
     ) { }
 ////consuta estoque
   public sendGetRequest(): Observable<any> {
@@ -88,6 +91,11 @@ export class EstoqueService {
 
   public sendPostLojaRequest(loja: loja): Observable<any> {
     return this.httpClient.post(this.urlBase + 'loja', JSON.stringify(loja), this.httpOptions);
+  }
+
+////navigate
+  public navigateTo(rota:string){
+    this.router.navigate([`/${rota}`], { relativeTo: this.route, skipLocationChange: true });
   }
 ////variaveis do sistema
   get listaCompra() {

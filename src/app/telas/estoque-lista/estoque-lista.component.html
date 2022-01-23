@@ -9,7 +9,7 @@
       <td mat-cell *matCellDef="let element" class="colunaEstoque">
 
         <button mat-mini-fab color="primary" aria-label="edit" class="buttonAction"
-          routerLink="/editaItem/{{element.barcode}}">
+        (click)="estoqueService.navigateTo('editaItem/'+element.barcode)">
           <mat-icon>edit</mat-icon>
         </button>
 

@@ -83,7 +83,7 @@ export class ItemEditarComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DialogAlertComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       data => {
-        this.router.navigate([`/editaItem/${resultado.barcode}`], { relativeTo: this.route });
+        this.router.navigate([`/editaItem/${resultado.barcode}`], { relativeTo: this.route, skipLocationChange: true });
         this.carregarProduto(resultado.barcode || '');
       });
   }

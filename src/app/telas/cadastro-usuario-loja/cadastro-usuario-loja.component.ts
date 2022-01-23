@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
+// import { AuthService } from '@auth0/auth0-angular';
 import { loja } from 'src/app/compartilhado/models/loja.model';
 import { usuario } from 'src/app/compartilhado/models/usuario.model';
 import { DialogQrcodeComponent } from 'src/app/dialog/dialog-qrcode/dialog-qrcode.component';
@@ -29,7 +29,7 @@ export class CadastroUsuarioLojaComponent implements OnInit {
     public dialog: MatDialog,
     private utilsService: UtilsService,
     private _snackBar: MatSnackBar,
-    public auth: AuthService,
+    // public auth: AuthService,
   ) { }
 
   ngOnInit(): void {

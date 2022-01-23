@@ -35,7 +35,7 @@ export class CupomComponent implements OnInit, AfterViewInit {
       this.valorTotal = this.router.getCurrentNavigation()!.extras.state!.valorTotal || {};
       this.cpfCliente = this.router.getCurrentNavigation()!.extras.state!.cpf || 'Não solicitado';
     } catch {
-      this.router.navigate([`/`], { relativeTo: this.route });
+      this.router.navigate([`/`], { relativeTo: this.route, skipLocationChange: true });
     }
   }
 
@@ -43,13 +43,14 @@ export class CupomComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       let htmlVazio: any;
 
-      htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio)
-        .then((dataUrl) => {
-          this.cupomArquivo = dataUrl;
-        });
+      // htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio)
+      //   .then((dataUrl) => {
+      //     this.cupomArquivo = dataUrl;
+      //   });
 
       htmlToImage.toPng(document.getElementById('print-section') || htmlVazio)
         .then((dataUrl) => {
+          this.cupomArquivo = dataUrl;
           (document.getElementById('print-section') || htmlVazio).innerHTML =
             `<div id="print-section" >
         <img src='${dataUrl}' style=
@@ -82,23 +83,26 @@ export class CupomComponent implements OnInit, AfterViewInit {
     // this.showError('Impresso com sucesso!', 'novaVenda');
   }
   enviarEmail() {
-    let htmlVazio: any;
-    const filesArray = [
-      new File(
-        [this.cupomArquivo],
-        'cupomCliente.jpg',
-        {
-          type: "image/jpeg",
-          lastModified: new Date().getTime()
-        }
-      )
-    ];
-    const shareData = {
-      files: filesArray,
-      title: 'Cupom',
-      text: 'Segue seu cupom.',
-    };
-    navigator.share(shareData);
+    // let htmlVazio: any;
+    // const filesArray = [
+    //   new File(
+    //     [this.cupomArquivo],
+    //     'cupomCliente.jpg',
+    //     {
+    //       type: "image/jpeg",
+    //       lastModified: new Date().getTime()
+    //     }
+    //   )
+    // ];
+    // const shareData = {
+    //   files: filesArray,
+    //   title: 'Cupom',
+    //   text: 'Segue seu cupom.',
+    // };
+    // navigator.share(shareData);
+
+    let corpoEmail: string = `mailto:${this.emailCliente}?subject=Bem vindo a ${this.estoqueService.loja.name}&body=<p>Obrigado por comprar com a gente!</p><img src\"${this.cupomArquivo}\">`;
+    window.open(encodeURI(corpoEmail), '_blank');
     // this.estoqueService.sendEmail(document.getElementById('print-section') || htmlVazio, this.emailCliente)
     //   .subscribe((resultado: any) => {
     //     // this.showError('Enviado email com sucesso!', 'novaVenda');

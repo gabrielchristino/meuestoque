@@ -2,24 +2,24 @@
   <mat-toolbar-row>
     <span>Meu estoque</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button aria-label="abrir pagina inicial" routerLink=""  *ngIf="(auth.isAuthenticated$ | async) === true">
+    <button mat-icon-button aria-label="abrir pagina inicial" (click)="estoqueService.navigateTo('')"  *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">
       <mat-icon>home</mat-icon>
     </button>
-    <button mat-icon-button aria-label="abrir menu principal" [matMenuTriggerFor]="mainMenu"  *ngIf="(auth.isAuthenticated$ | async) === true">
+    <button mat-icon-button aria-label="abrir menu principal" [matMenuTriggerFor]="mainMenu"  *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">
       <mat-icon>menu</mat-icon>
     </button>
 
     <mat-menu #mainMenu="matMenu">
       <button mat-menu-item aria-label="abrir menu estoque" [matMenuTriggerFor]="estoqueMenu">Estoque</button>
-      <button mat-menu-item aria-label="fazer nova venda" routerLink="/novaVenda">Nova venda</button>
+      <button mat-menu-item aria-label="fazer nova venda" (click)="estoqueService.navigateTo('novaVenda')">Nova venda</button>
       <button mat-menu-item aria-label="consultar preço" (click)="exibirAlerta()">Consulta preço</button>
-      <button mat-menu-item aria-label="meu cadastro" routerLink="/cadastro">Meu cadastro</button>
-      <button mat-menu-item aria-label="consultar preço" (click)="lougout()" *ngIf="(auth.isAuthenticated$ | async) === true">Logout</button>
+      <button mat-menu-item aria-label="meu cadastro" (click)="estoqueService.navigateTo('cadastro')">Meu cadastro</button>
+      <button mat-menu-item aria-label="consultar preço" (click)="lougout()" *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">Sair</button>
     </mat-menu>
 
     <mat-menu #estoqueMenu="matMenu">
-      <button mat-menu-item aria-label="ver todo estoque" routerLink="/listaEstoque">Ver tudo</button>
-      <button mat-menu-item aria-label="adicionar item" routerLink="/novoItem">Adicionar item</button>
+      <button mat-menu-item aria-label="ver todo estoque" (click)="estoqueService.navigateTo('listaEstoque')">Ver tudo</button>
+      <button mat-menu-item aria-label="adicionar item" (click)="estoqueService.navigateTo('novoItem')">Adicionar item</button>
     </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogConsultaComponent } from '../../dialog/dialog-consulta/dialog-consulta.component';
-import { AuthService } from '@auth0/auth0-angular';
+// import { AuthService } from '@auth0/auth0-angular';
+import { SocialAuthService } from 'angularx-social-login';
+import { EstoqueService } from 'src/app/servicos/estoque.service';
 
 @Component({
   selector: 'app-title',
@@ -17,8 +19,9 @@ export class TitleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    public auth: AuthService
-
+    // public auth: AuthService,
+    private socialAuthService: SocialAuthService,
+    public estoqueService: EstoqueService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +43,7 @@ export class TitleComponent implements OnInit {
   }
 
   lougout() {
-    this.auth.logout({ returnTo: document.location.origin });
+    // this.auth.logout({ returnTo: document.location.origin });
+    this.socialAuthService.signOut();
   }
 }

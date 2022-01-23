@@ -47,7 +47,7 @@ import { LoginPageComponent } from './telas/login-page/login-page.component';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 
-import { AuthModule } from '@auth0/auth0-angular';
+// import { AuthModule } from '@auth0/auth0-angular';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -106,10 +106,10 @@ registerLocaleData(localePT);
     SocialLoginModule,
 
 
-    AuthModule.forRoot({
-      domain: 'dev-cnm7hzu8.us.auth0.com',
-      clientId: 'jLYq1Q0169PRu0Vs0PZycnqYHyG9cNJi'
-    }),
+    // AuthModule.forRoot({
+    //   domain: 'dev-cnm7hzu8.us.auth0.com',
+    //   clientId: 'jLYq1Q0169PRu0Vs0PZycnqYHyG9cNJi'
+    // }),
 
     FormsModule,
     HttpClientModule,
