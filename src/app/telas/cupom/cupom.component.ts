@@ -52,7 +52,8 @@ export class CupomComponent implements OnInit, AfterViewInit {
         loja: this.estoqueService.usuario.idLoja,
         datahora: String(new Date()),
         vendedor: this.estoqueService.user.email,
-        cupom: String(document.getElementById('print-section')?.innerText)
+        cupom: String(document.getElementById('print-section')?.innerText),
+        valorvenda: this.valorTotal
       }
       this.estoqueService.sendPostVendasRequest(vendaRequest)
       .subscribe((venda)=>{

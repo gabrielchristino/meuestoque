@@ -4,4 +4,5 @@ export class venda {
   vendedor?: string = '';
   cupom?: string = '';
   loja?: string = '';
+  valorvenda: number = 0;
 }
