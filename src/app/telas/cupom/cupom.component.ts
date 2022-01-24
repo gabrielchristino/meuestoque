@@ -7,6 +7,7 @@ import { EstoqueService } from '../../servicos/estoque.service';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { UtilsService } from 'src/app/servicos/utils.service';
+import { venda } from 'src/app/compartilhado/models/venda.model';
 
 @Component({
   selector: 'app-cupom',
@@ -47,6 +48,16 @@ export class CupomComponent implements OnInit, AfterViewInit {
       //   .then((dataUrl) => {
       //     this.cupomArquivo = dataUrl;
       //   });
+      const vendaRequest: venda = {
+        loja: this.estoqueService.usuario.idLoja,
+        dataora: String(new Date()),
+        vendedor: this.estoqueService.user.email,
+        cupom: String(document.getElementById('print-section')?.innerText)
+      }
+      this.estoqueService.sendPostVendasRequest(vendaRequest)
+      .subscribe((venda)=>{
+
+      });
 
       htmlToImage.toPng(document.getElementById('print-section') || htmlVazio)
         .then((dataUrl) => {

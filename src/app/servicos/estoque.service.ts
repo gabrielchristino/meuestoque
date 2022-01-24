@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { estoqueItens } from '../compartilhado/models/estoqueItens.model';
 import { loja } from '../compartilhado/models/loja.model';
 import { usuario } from '../compartilhado/models/usuario.model';
+import { venda } from '../compartilhado/models/venda.model';
 
 export const APP_ID = "estoque-vnaxc";
 
@@ -91,6 +92,10 @@ export class EstoqueService {
 
   public sendPostLojaRequest(loja: loja): Observable<any> {
     return this.httpClient.post(this.urlBase + 'loja', JSON.stringify(loja), this.httpOptions);
+  }
+////consulta vendas
+  public sendPostVendasRequest(venda: venda): Observable<any> {
+    return this.httpClient.post(this.urlBase + 'vendas', JSON.stringify(venda), this.httpOptions);
   }
 
 ////navigate
