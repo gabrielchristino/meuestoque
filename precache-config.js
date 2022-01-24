@@ -3,20 +3,20 @@ var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 module.exports = {
     navigateFallback: '/index.html',
     navigateFallbackWhitelist: [],
-    stripePrefix: 'dist',
-    root: 'dist/',
+    stripePrefix: 'dist/estoque',
+    root: 'dist/estoque/',
     plugins:[
         new SWPrecacheWebpackPlugin({
             cacheId: 'ng-pwa',
             filename: 'service-worker.js',
             staticFileGlobs: [
-                'dist/index.html',
-                'dist/**.js',
-                'dist/**.css'
+                'dist/estoque/index.html',
+                'dist/estoque/**.js',
+                'dist/estoque/**.css'
             ],
 
         })
     ],
-    stripePrefix: 'dist/assets',
+    stripePrefix: 'dist/estoque/assets',
     mergeStaticsConfig: true
 };
