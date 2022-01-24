@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
 import { EstoqueService } from '../../servicos/estoque.service';
 import { estoqueItens } from '../../compartilhado/models/estoqueItens.model';
-import { BarcodeScannerLivestreamComponent, BarcodeScannerLivestreamOverlayComponent } from "ngx-barcode-scanner";
+import { BarcodeScannerLivestreamComponent } from "ngx-barcode-scanner";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { UtilsService } from 'src/app/servicos/utils.service';
 import { QuaggaJSConfigObject } from '@ericblade/quagga2';

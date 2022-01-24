@@ -28,7 +28,6 @@ import { ItemEditarComponent } from './telas/item-editar/item-editar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogConfirmComponent } from './dialog/dialog-confirm/dialog-confirm.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -36,8 +35,7 @@ import { DialogAlertComponent } from './dialog/dialog-alert/dialog-alert.compone
 import { DialogConsultaComponent } from './dialog/dialog-consulta/dialog-consulta.component';
 import { novaVendaComponent } from './telas/nova-venda/nova-venda.component';
 import { DialogErrorComponent } from './dialog/dialog-error/dialog-error.component';
-import { LoadPageComponent } from './compartilhado/load-page/load-page.component';
-import { BarcodeScannerLivestreamModule, BarcodeScannerLivestreamOverlayModule } from "ngx-barcode-scanner";
+import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 import { DialogValorComponent } from './dialog/dialog-valor/dialog-valor.component';
 import { CupomComponent } from './telas/cupom/cupom.component';
 import { NgxPrintModule } from 'ngx-print';
@@ -46,8 +44,6 @@ import { LoginPageComponent } from './telas/login-page/login-page.component';
 
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
-
-// import { AuthModule } from '@auth0/auth0-angular';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -70,7 +66,6 @@ registerLocaleData(localePT);
     DialogConsultaComponent,
     novaVendaComponent,
     DialogErrorComponent,
-    LoadPageComponent,
     DialogValorComponent,
     CupomComponent,
     HomePageComponent,
@@ -95,21 +90,13 @@ registerLocaleData(localePT);
     MatMenuModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule,
 
     NgxPrintModule,
     BarcodeScannerLivestreamModule,
-    BarcodeScannerLivestreamOverlayModule,
     QrCodeModule,
 
     ReactiveFormsModule,
     SocialLoginModule,
-
-
-    // AuthModule.forRoot({
-    //   domain: 'dev-cnm7hzu8.us.auth0.com',
-    //   clientId: 'jLYq1Q0169PRu0Vs0PZycnqYHyG9cNJi'
-    // }),
 
     FormsModule,
     HttpClientModule,
@@ -118,14 +105,11 @@ registerLocaleData(localePT);
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     })
 
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

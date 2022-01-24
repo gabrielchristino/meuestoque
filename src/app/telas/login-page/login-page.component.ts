@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-// import { AuthService } from '@auth0/auth0-angular';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
@@ -19,10 +16,6 @@ export class LoginPageComponent implements OnInit {
   public startSignup: boolean = false;
 
   constructor(
-    // public auth: AuthService,
-    private _snackBar: MatSnackBar,
-    private router: Router,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private socialAuthService: SocialAuthService
   ) { }
@@ -32,12 +25,6 @@ export class LoginPageComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    // this.socialAuthService.authState.subscribe((user) => {
-    //   this.socialUser = user;
-    //   this.isLoggedin = (user != null);
-    //   console.log(this.socialUser);
-    // });
   }
 
   loginWithGoogle(): void {
@@ -47,8 +34,4 @@ export class LoginPageComponent implements OnInit {
   logOut(): void {
     this.socialAuthService.signOut();
   }
-  //client id
-  //803165754242-rnmjlr4uogg8cgoht3o7u0irrkhic1mg.apps.googleusercontent.com
-  //client secret
-  //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
 }

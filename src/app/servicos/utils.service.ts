@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { AuthService } from '@auth0/auth0-angular';
 import { SocialAuthService } from 'angularx-social-login';
 import { DialogErrorComponent } from '../dialog/dialog-error/dialog-error.component';
 
@@ -14,7 +13,6 @@ export class UtilsService {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    // public auth: AuthService,
     private socialAuthService: SocialAuthService
   ) { }
 

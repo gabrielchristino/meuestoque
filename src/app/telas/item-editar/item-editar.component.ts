@@ -4,8 +4,6 @@ import { estoqueItens } from '../../compartilhado/models/estoqueItens.model';
 import { EstoqueService } from '../../servicos/estoque.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAlertComponent } from '../../dialog/dialog-alert/dialog-alert.component';
-import { DialogErrorComponent } from '../../dialog/dialog-error/dialog-error.component';
-import { throwError } from 'rxjs';
 import { DialogConsultaComponent } from '../../dialog/dialog-consulta/dialog-consulta.component';
 import { UtilsService } from 'src/app/servicos/utils.service';
 

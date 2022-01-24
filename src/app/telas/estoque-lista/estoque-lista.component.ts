@@ -1,13 +1,11 @@
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogConfirmComponent } from '../../dialog/dialog-confirm/dialog-confirm.component';
 import { EstoqueService } from '../../servicos/estoque.service';
-import { DialogErrorComponent } from '../../dialog/dialog-error/dialog-error.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { throwError } from 'rxjs';
 import { estoqueItens } from '../../compartilhado/models/estoqueItens.model';
 import { UtilsService } from 'src/app/servicos/utils.service';
 

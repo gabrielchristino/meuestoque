@@ -2,11 +2,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogAlertComponent } from '../../dialog/dialog-alert/dialog-alert.component';
-import { DialogErrorComponent } from '../../dialog/dialog-error/dialog-error.component';
 import { EstoqueService } from '../../servicos/estoque.service';
 import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import { UtilsService } from 'src/app/servicos/utils.service';
 import { venda } from 'src/app/compartilhado/models/venda.model';
 
 @Component({
@@ -29,7 +26,6 @@ export class CupomComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     public estoqueService: EstoqueService,
     public dialog: MatDialog,
-    private utilsService: UtilsService
   ) {
     try {
       this.dados = this.router.getCurrentNavigation()!.extras.state!.venda || {};
@@ -43,11 +39,6 @@ export class CupomComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       let htmlVazio: any;
-
-      // htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio)
-      //   .then((dataUrl) => {
-      //     this.cupomArquivo = dataUrl;
-      //   });
       const vendaRequest: venda = {
         loja: this.estoqueService.usuario.idLoja,
         datahora: String(new Date()),
@@ -73,14 +64,6 @@ export class CupomComponent implements OnInit, AfterViewInit {
         </div>
         `;
         });
-
-        // htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio)
-        // .then((blob) => {
-
-        // });
-
-
-
     }, 0);
 
   }
