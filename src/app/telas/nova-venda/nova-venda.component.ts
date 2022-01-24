@@ -139,7 +139,7 @@ export class novaVendaComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-      mensagem: 'Informe o CPF/CNPJ do cliente', campo: 'CPF/CNPJ', tipo: 'text', exemplo: 'CPF/CNPJ', btn1: '', btn2: { texto: 'Sem CPF/CNPJ', valor: ' >' }
+      mensagem: 'Informe o CPF/CNPJ do cliente', campo: 'CPF/CNPJ', tipo: 'number', exemplo: 'CPF/CNPJ', btn1: '', btn2: { texto: 'Sem CPF/CNPJ', valor: ' >' }
     }
     dialogConfig.autoFocus = true;
     const dialogRef2 = this.dialog.open(DialogValorComponent, dialogConfig);
