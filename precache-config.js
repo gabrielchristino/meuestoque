@@ -17,6 +17,9 @@ module.exports = {
                 'dist/**.css',
                 'dist/**.js',
                 'dist/**.html',
+                '**.css',
+                '**.js',
+                '**.html',
             ],
 
         })
