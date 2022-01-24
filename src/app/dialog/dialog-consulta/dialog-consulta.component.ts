@@ -95,6 +95,8 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
                   this.utilsService.showError('');
                 });
           }
+      } else {
+        this.dialogRef.close();
       }
     } catch (e) {
       this.utilsService.showError(String(e));

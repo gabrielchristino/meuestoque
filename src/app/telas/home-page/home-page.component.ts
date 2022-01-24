@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogConsultaComponent } from '../../dialog/dialog-consulta/dialog-consulta.component';
 import { EstoqueService } from 'src/app/servicos/estoque.service';
@@ -13,8 +13,25 @@ export class HomePageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public estoqueService: EstoqueService,
-    ) { }
+  ) { }
 
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'n':
+        this.estoqueService.navigateTo('novaVenda');
+        break;
+      case 'c':
+        this.consultaPreco();
+        break;
+      case 'e':
+        this.estoqueService.navigateTo('listaEstoque');
+        break;
+
+      default:
+        break;
+    }
+  }
   ngOnInit(): void {
   }
 

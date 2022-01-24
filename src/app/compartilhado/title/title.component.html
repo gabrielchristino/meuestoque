@@ -2,7 +2,7 @@
   <mat-toolbar-row>
     <span>Meu estoque</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button aria-label="abrir pagina inicial" (click)="estoqueService.navigateTo('')"  *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">
+    <button mat-icon-button matTooltip="Vá para página inicial" aria-label="abrir pagina inicial" (click)="estoqueService.navigateTo('')"  *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">
       <mat-icon>home</mat-icon>
     </button>
     <button mat-icon-button aria-label="abrir menu principal" [matMenuTriggerFor]="mainMenu"  *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">
@@ -11,15 +11,15 @@
 
     <mat-menu #mainMenu="matMenu">
       <button mat-menu-item aria-label="abrir menu estoque" [matMenuTriggerFor]="estoqueMenu">Estoque</button>
-      <button mat-menu-item aria-label="fazer nova venda" (click)="estoqueService.navigateTo('novaVenda')">Nova venda</button>
-      <button mat-menu-item aria-label="consultar preço" (click)="exibirAlerta()">Consulta preço</button>
-      <button mat-menu-item aria-label="meu cadastro" (click)="estoqueService.navigateTo('cadastro')">Meu cadastro</button>
-      <button mat-menu-item aria-label="consultar preço" (click)="lougout()" *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">Sair</button>
+      <button mat-menu-item aria-label="fazer nova venda" matTooltip="Inicie uma nova venda" (click)="estoqueService.navigateTo('novaVenda')">Nova venda</button>
+      <button mat-menu-item aria-label="consultar preço" matTooltip="Consulte o preço de um produto" (click)="exibirAlerta()">Consulta preço</button>
+      <button mat-menu-item aria-label="meu cadastro" matTooltip="Altere seu cadastro" (click)="estoqueService.navigateTo('cadastro')">Meu cadastro</button>
+      <button mat-menu-item aria-label="consultar preço" matTooltip="Finalizar sessão" (click)="lougout()" *ngIf="estoqueService.user !== undefined && estoqueService.user !== null">Sair</button>
     </mat-menu>
 
     <mat-menu #estoqueMenu="matMenu">
-      <button mat-menu-item aria-label="ver todo estoque" (click)="estoqueService.navigateTo('listaEstoque')">Ver tudo</button>
-      <button mat-menu-item aria-label="adicionar item" (click)="estoqueService.navigateTo('novoItem')">Adicionar item</button>
+      <button mat-menu-item aria-label="ver todo estoque" matTooltip="Veja seu estoque" (click)="estoqueService.navigateTo('listaEstoque')">Ver tudo</button>
+      <button mat-menu-item aria-label="adicionar item" matTooltip="Cadastre um novo item no estoque" (click)="estoqueService.navigateTo('novoItem')">Adicionar item</button>
     </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>

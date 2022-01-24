@@ -28,6 +28,7 @@ import { ItemEditarComponent } from './telas/item-editar/item-editar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogConfirmComponent } from './dialog/dialog-confirm/dialog-confirm.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -90,6 +91,7 @@ registerLocaleData(localePT);
     MatMenuModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
 
     NgxPrintModule,
     BarcodeScannerLivestreamModule,

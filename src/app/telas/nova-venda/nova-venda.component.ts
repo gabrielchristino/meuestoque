@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -15,7 +15,7 @@ import { UtilsService } from 'src/app/servicos/utils.service';
   templateUrl: './nova-venda.component.html',
   styleUrls: ['./nova-venda.component.css']
 })
-export class novaVendaComponent implements OnInit {
+export class novaVendaComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean = false;
   displayedColumns: string[] = ['actions', 'description', 'items', 'price'];
@@ -38,6 +38,29 @@ export class novaVendaComponent implements OnInit {
     private estoqueService: EstoqueService,
     private utilsService: UtilsService
   ) { }
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'f':
+        if(this.dataSource.data.length > 0){
+          this.fecharCompra();
+        }
+        break;
+        case 'n':
+          this.exibirAlerta();
+          break;
+
+      default:
+        break;
+    }
+  }
+
+  ngAfterViewInit(): void {
+      if(this.dataSource.data.length === 0){
+        this.exibirAlerta();
+      }
+  }
 
   ngOnInit(): void {
     if (this.estoqueService.listaCompra.data.length > 0 && !this.estoqueService.compraFechada) {
@@ -107,7 +130,7 @@ export class novaVendaComponent implements OnInit {
       data => {
         if (data) {
           dialogConfig.data = {
-            mensagem: 'Informe a quantidade ou aperte Enter para 1 item', campo: 'Quantidade', tipo: 'number', exemplo: 'Ex. 1', btn1: ' itens', btn2: { texto: '1 item', valor: '1' }
+            mensagem: 'Informe a quantidade ou Pressione Enter para 1 item', campo: 'Quantidade', tipo: 'number', exemplo: 'Ex. 1', btn1: ' itens', btn2: { texto: '1 item', valor: '1' }
           }
           dialogConfig.autoFocus = true;
           const dialogRef2 = this.dialog.open(DialogValorComponent, dialogConfig);

@@ -8,12 +8,12 @@
         <td colspan="5" class="tdCenter"><span>{{estoqueService.loja.name}}</span></td>
       </tr>
       <tr>
-        <td colspan="5" class="tdCenter"><span>{{estoqueService.loja.cnpj}}</span></td>
+        <td colspan="5" class="tdCenter"><span>CPF/CNPJ LOJA: {{estoqueService.loja.cnpj}}</span></td>
       </tr>
       <tr>
         <td colspan="5" class="tdCenter"><span>CUPOM FICAL ELETRONICO</span></td>
       </tr>
-      <tr *ngIf="cpfCliente.length>11">
+      <tr *ngIf="cpfCliente.length>10">
         <td colspan="5" class="tdCenter"><span>CPF/CNPJ CONSUM.: {{formataCPF(cpfCliente)}}</span></td>
       </tr>
       <tr>
