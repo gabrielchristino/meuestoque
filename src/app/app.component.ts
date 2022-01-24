@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   public isLoggedin: boolean = false;
   public startSignup: boolean = false;
 
-
   public isLoading: boolean = false;
   constructor(
     private route: ActivatedRoute,
