@@ -1,5 +1,5 @@
 cd C:\Users\gabri\workspace\meuestoque
-call npm run build
+call npm run pwa
 cd C:\Users\gabri\workspace\gabrielchristino.github.io
 del * /Q
 rmdir /S assets /Q
