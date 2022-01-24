@@ -12,7 +12,10 @@ module.exports = {
             staticFileGlobs: [
                 'dist/estoque/index.html',
                 'dist/estoque/**.js',
-                'dist/estoque/**.css'
+                'dist/estoque/**.css',
+                'dist/**.css',
+                'dist/estoque/**.html',
+                'dist/ngsw-worker.js'
             ],
 
         })
