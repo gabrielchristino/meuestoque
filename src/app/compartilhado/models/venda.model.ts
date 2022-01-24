@@ -1,6 +1,6 @@
 export class venda {
   _id?: string = undefined;
-  dataora?: string = '';
+  datahora?: string = '';
   vendedor?: string = '';
   cupom?: string = '';
   loja?: string = '';

@@ -50,7 +50,7 @@ export class CupomComponent implements OnInit, AfterViewInit {
       //   });
       const vendaRequest: venda = {
         loja: this.estoqueService.usuario.idLoja,
-        dataora: String(new Date()),
+        datahora: String(new Date()),
         vendedor: this.estoqueService.user.email,
         cupom: String(document.getElementById('print-section')?.innerText)
       }
