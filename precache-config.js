@@ -8,7 +8,7 @@ module.exports = {
     plugins:[
         new SWPrecacheWebpackPlugin({
             cacheId: 'ng-pwa',
-            filename: 'service-worker.js',
+            filename: '/dist/service-worker.js',
             staticFileGlobs: [
                 'dist/estoque/index.html',
                 'dist/estoque/**.js',
