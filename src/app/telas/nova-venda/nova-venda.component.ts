@@ -153,10 +153,7 @@ export class novaVendaComponent implements OnInit {
             dadosItem[0].items = Number(dadosItem[0].items) - Number(itemLista.items);
             this.estoqueService.sendPutRequest(dadosItem[0])
             .subscribe((item:estoqueItens)=>{
-              // console.log('ok');
-
             }, (error:string)=>{
-              // console.log('nok');
             });
           });
         });
