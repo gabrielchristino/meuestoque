@@ -5,6 +5,11 @@
 <div *ngIf="!isLoading" class="tela">
 
   {{configuracao.camera|json}}
+
+  <barcode-scanner-livestream [config]="config" [deviceId]="configuracao.camera"
+    [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
+  </barcode-scanner-livestream>
+
   <form class="item-form">
     <mat-form-field class="item-full-width" appearance="fill">
       <mat-label>Escolha a câmera para escanear os códigos</mat-label>

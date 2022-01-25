@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { QuaggaJSConfigObject } from '@ericblade/quagga2';
+import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 import { EstoqueService } from 'src/app/servicos/estoque.service';
 import { UtilsService } from 'src/app/servicos/utils.service';
 
@@ -14,6 +16,32 @@ export class ConfiguracaoComponent implements OnInit {
 
   configuracao: any = {
     camera: []
+  }
+
+  resultado: string = '';
+
+  @ViewChild(BarcodeScannerLivestreamComponent)
+  barcodeScanner!: BarcodeScannerLivestreamComponent;
+
+  public config: QuaggaJSConfigObject = {
+    frequency: 3,
+    debug: true,
+    decoder: {
+      debug: {
+        drawBoundingBox: true,
+        drawScanline: true,
+        showPattern: true
+      }
+    },
+    locator: {
+      patchSize: 'x-large',
+      debug: {
+        showCanvas: true,
+        showSkeleton: true,
+        showLabels: true,
+
+      }
+    }
   }
 
   constructor(
@@ -52,7 +80,11 @@ export class ConfiguracaoComponent implements OnInit {
   salvarItem() {
     this.isLoading = true;
     this.isLoading = false;
+    this.barcodeScanner.start();
 
   }
 
+  onValueChanges(result: any) {
+    this.resultado = result.codeResult.code;
+  }
 }
