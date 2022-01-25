@@ -43,13 +43,13 @@ export class novaVendaComponent implements OnInit, AfterViewInit {
   handleKeyboardEvent(event: KeyboardEvent) {
     switch (event.key) {
       case 'f':
-        if(this.dataSource.data.length > 0){
+        if (this.dataSource.data.length > 0) {
           this.fecharCompra();
         }
         break;
-        case 'n':
-          this.exibirAlerta();
-          break;
+      case 'n':
+        this.exibirAlerta();
+        break;
 
       default:
         break;
@@ -57,9 +57,9 @@ export class novaVendaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      if(this.dataSource.data.length === 0){
-        this.exibirAlerta();
-      }
+    if (this.dataSource.data.length === 0) {
+      this.exibirAlerta();
+    }
   }
 
   ngOnInit(): void {
@@ -136,14 +136,16 @@ export class novaVendaComponent implements OnInit, AfterViewInit {
           const dialogRef2 = this.dialog.open(DialogValorComponent, dialogConfig);
           dialogRef2.afterClosed().subscribe(
             resultado => {
-              data.items = resultado;
-              data.item = this.itemNumero;
-              data.totalPrice = data.items * data.price;
-              this.itensLista.push(data);
-              this.valorTotal += data.items * data.price;
-              this.dataSource = new MatTableDataSource<estoqueItens>(this.itensLista);
-              this.estoqueService.listaCompra = this.dataSource;
-              this.itemNumero += 1;
+              if (resultado && resultado !== undefined && resultado !== '' && resultado !== 0) {
+                data.items = resultado;
+                data.item = this.itemNumero;
+                data.totalPrice = data.items * data.price;
+                this.itensLista.push(data);
+                this.valorTotal += data.items * data.price;
+                this.dataSource = new MatTableDataSource<estoqueItens>(this.itensLista);
+                this.estoqueService.listaCompra = this.dataSource;
+                this.itemNumero += 1;
+              }
             },
             error => {
               this.utilsService.showError('');
@@ -166,23 +168,23 @@ export class novaVendaComponent implements OnInit, AfterViewInit {
     const dialogRef2 = this.dialog.open(DialogValorComponent, dialogConfig);
     dialogRef2.afterClosed().subscribe(
       resultado => {
+        if (resultado && resultado !== undefined && resultado !== '' && resultado !== 0) {
+          this.estoqueService.listaCompra = this.dataSource;
+          this.dataSource = new MatTableDataSource<estoqueItens>();
 
-        this.estoqueService.listaCompra = this.dataSource;
-        this.dataSource = new MatTableDataSource<estoqueItens>();
-
-        this.estoqueService.listaCompra.data.forEach((itemLista:estoqueItens)=>{
-          this.estoqueService.sendGetRequestByCode(String(itemLista.barcode))
-          .subscribe((dadosItem:estoqueItens[])=>{
-            dadosItem[0].items = Number(dadosItem[0].items) - Number(itemLista.items);
-            this.estoqueService.sendPutRequest(dadosItem[0])
-            .subscribe((item:estoqueItens)=>{
-            }, (error:string)=>{
-            });
+          this.estoqueService.listaCompra.data.forEach((itemLista: estoqueItens) => {
+            this.estoqueService.sendGetRequestByCode(String(itemLista.barcode))
+              .subscribe((dadosItem: estoqueItens[]) => {
+                dadosItem[0].items = Number(dadosItem[0].items) - Number(itemLista.items);
+                this.estoqueService.sendPutRequest(dadosItem[0])
+                  .subscribe((item: estoqueItens) => {
+                  }, (error: string) => {
+                  });
+              });
           });
-        });
 
-        this.router.navigate([`/cupomPage`], { relativeTo: this.route, skipLocationChange: true, state: { venda: this.itensLista, valorTotal: this.valorTotal, cpf: resultado } });
-
+          this.router.navigate([`/cupomPage`], { relativeTo: this.route, skipLocationChange: true, state: { venda: this.itensLista, valorTotal: this.valorTotal, cpf: resultado } });
+        }
       },
       error => {
         this.utilsService.showError('');
