@@ -5,9 +5,9 @@
 <div *ngIf="!isLoading" class="tela">
 
   <form class="item-form">
-    <mat-form-field appearance="fill" class="item-full-width">
+    <mat-form-field appearance="fill" class="item-full-width" *ngIf="configuracao.cameras.length > 0">
       <mat-label>Aqui você pode mudar a câmera para escanear os códigos</mat-label>
-      <mat-select name="camera" (selectionChange)="setCamera($event)">
+      <mat-select [(ngModel)]="estoqueService.cookieCamera" name="camera" (selectionChange)="setCamera($event)">
         <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera.deviceId">
           {{camera.label}}
         </mat-option>

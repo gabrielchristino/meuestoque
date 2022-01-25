@@ -54,9 +54,9 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void {
-      if(this.estoqueService.cookieCamera) {
-        this.barcodeScanner.start();
-      }
+    if (this.estoqueService.cookieCamera) {
+      this.barcodeScanner.start();
+    }
   }
 
   ngOnInit(): void {
@@ -67,16 +67,22 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
 
     navigator.mediaDevices.enumerateDevices()
       .then((devices) => {
-        devices.forEach((device) => {
+        devices.forEach((device, index) => {
           if (device.kind === "videoinput") {
-            this.configuracao.cameras.push(device);
+            let camera = {
+              deviceId: device.deviceId,
+              label: `Camera ${index}`
+            }
+
+            this.configuracao.cameras.push(camera);
           }
         });
       })
       .catch(function (err) { });
   }
 
-  setCamera(evento: any){
+  setCamera(evento: any) {
+    this.barcodeScanner.stop();
     this.estoqueService.cookieCamera = evento.value;
     this.barcodeScanner.start();
   }
