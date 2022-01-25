@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogConfirmComponent } from './dialog/dialog-confirm/dialog-confirm.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -95,6 +96,7 @@ registerLocaleData(localePT);
     MatDialogModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatDividerModule,
 
     NgxPrintModule,
     BarcodeScannerLivestreamModule,

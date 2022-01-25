@@ -18,7 +18,7 @@
   <button id="btnConsultar" *ngIf="externalData != 'retornaBarcode'" color="primary" mat-flat-button (click)="consultar()" matTooltip="Pressione 'Enter' para pesquisar" [disabled]="!barcode || barcode.length == 0 || desabilitarBotaoPesquisar" >Pesquisar</button>
   <button id="btnOk" *ngIf="externalData == 'retornaBarcode'" color="primary" mat-flat-button (click)="enviarBarcode()" matTooltip="Pressione 'Enter' para seguir" [disabled]="!barcode || barcode.length == 0" >Ok</button>
   <button id="btnTentarNovamente" *ngIf="externalData == 'retornaBarcode'" color="warn" mat-flat-button (click)="tentarNovamente()"  [disabled]="!barcode || barcode.length == 0" >Tentar novamente</button>
-  <button id="btnFechar" mat-flat-button mat-dialog-close>Fechar</button>
+  <button id="btnFechar" mat-flat-button mat-dialog-close>Cancelar</button>
 </div>
 <br>
 <div class="barcode-scanner">
