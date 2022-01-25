@@ -128,7 +128,7 @@ export class ItemEditarComponent implements OnInit, OnChanges {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true'
     dialogConfig.data = 'retornaBarcode';
 
     const dialogRef = this.dialog.open(DialogConsultaComponent, dialogConfig);

@@ -122,7 +122,7 @@ export class novaVendaComponent implements OnInit, AfterViewInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true'
     dialogConfig.data = 'consulta2';
 
     const dialogRef = this.dialog.open(DialogConsultaComponent, dialogConfig);
@@ -132,7 +132,7 @@ export class novaVendaComponent implements OnInit, AfterViewInit {
           dialogConfig.data = {
             mensagem: 'Informe a quantidade ou Pressione Enter para 1 item', campo: 'Quantidade', tipo: 'number', exemplo: 'Ex. 1', btn1: ' itens', btn2: { texto: '1 item', valor: '1' }
           }
-          dialogConfig.autoFocus = true;
+          dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true'
           const dialogRef2 = this.dialog.open(DialogValorComponent, dialogConfig);
           dialogRef2.afterClosed().subscribe(
             resultado => {
@@ -160,11 +160,11 @@ export class novaVendaComponent implements OnInit, AfterViewInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true'
     dialogConfig.data = {
       mensagem: 'Informe o CPF/CNPJ do cliente', campo: 'CPF/CNPJ', tipo: 'number', exemplo: 'CPF/CNPJ', btn1: '', btn2: { texto: 'Sem CPF/CNPJ', valor: ' >' }
     }
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true'
     const dialogRef2 = this.dialog.open(DialogValorComponent, dialogConfig);
     dialogRef2.afterClosed().subscribe(
       resultado => {

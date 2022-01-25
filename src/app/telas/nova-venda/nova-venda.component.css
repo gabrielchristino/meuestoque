@@ -30,8 +30,12 @@ table {
   display: block;
 }
 .buttons {
-  display: flex;
   justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 52px;
+  align-items: center;
+  box-sizing: content-box;
 }
 .example-spacer {
   flex: 1 1 auto;

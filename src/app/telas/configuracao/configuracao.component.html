@@ -5,7 +5,14 @@
 <div *ngIf="!isLoading" class="tela">
 
   <form class="item-form">
-    <mat-form-field appearance="fill" class="item-full-width" *ngIf="configuracao.cameras.length > 0">
+    <section appearance="fill" class="item-full-width">
+      <mat-checkbox name="keyboardenable" [(ngModel)]="habilitarTeclado">Habilitar o foco na caixa de texto automaticamente ao abrir um pop-up (maior agilidade)</mat-checkbox>
+    </section>
+    <section appearance="fill" class="item-full-width">
+      <mat-checkbox (change)="enableCamera(cameraSelecionada)"  name="cameraenable" [(ngModel)]="habilitarCamera">Habilitar camera ao escanear códigos de barras</mat-checkbox>
+    </section>
+
+    <mat-form-field appearance="fill" class="item-full-width" *ngIf="habilitarCamera && configuracao.cameras.length > 0">
       <mat-label>Aqui você pode mudar a câmera para escanear os códigos</mat-label>
       <mat-select [(ngModel)]="cameraSelecionada" (selectionChange)="setCamera($event)" name="camera">
         <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera.deviceId">
@@ -13,14 +20,14 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="item-full-width" appearance="fill">
+    <mat-form-field *ngIf="habilitarCamera" class="item-full-width" appearance="fill">
       <mat-label>Veja aqui se o código está digitalizando corretamente</mat-label>
       <input type="number" autocomplete="off" matInput
         disabled
         placeholder="Ex. 123456789" name="description" [(ngModel)]="resultado">
     </mat-form-field>
 
-    <barcode-scanner-livestream class="item-full-width2" [config]="config" [deviceId]="cameraSelecionada"
+    <barcode-scanner-livestream *ngIf="habilitarCamera" class="item-full-width2" [config]="config" [deviceId]="cameraSelecionada"
       [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
     </barcode-scanner-livestream>
   </form>

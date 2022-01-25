@@ -20,6 +20,7 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
 
   median: number = 0.1;
   threshold: number = 0;
+  habilitarCamera: boolean = false;
 
   // barcodeTypes: string[] = ['code_128','code_39','code_39_vin','ean','ean_extended','ean_8','upc','upc_e','codabar','i2of5','2of5','code_93']
 
@@ -63,13 +64,13 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
   barcode: string = '';
   ngOnInit(): void {
     this.mensagem = 'Pesquise o item';
-
+    this.habilitarCamera = this.estoqueService.habilitarCamera == 'true';
   }
 
   consultar() {
     try {
       if (this.barcode !== '') {
-        this.barcodeScanner.stop();
+        if(this.habilitarCamera) this.barcodeScanner.stop();
         if (String(this.externalData).indexOf('retornaBarcode') > -1) {
           this.enviarBarcode()
         } else
@@ -88,7 +89,7 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
                   this.mensagem = 'Tente novamente...';
                   this.barcode = '';
                   this.desabilitarBotaoPesquisar = false;
-                  this.barcodeScanner.start();
+                  if(this.habilitarCamera) this.barcodeScanner.start();
                 }
               },
                 error => {
@@ -106,11 +107,11 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.barcodeScanner.start();
+    if(this.habilitarCamera) this.barcodeScanner.start();
   }
 
   tentarNovamente() {
-    this.barcodeScanner.start();
+    if(this.habilitarCamera) this.barcodeScanner.start();
   }
 
   enviarBarcode() {
@@ -118,12 +119,12 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
   }
 
   onValueChanges(result: any) {
-    this.barcodeScanner.stop();
+    if(this.habilitarCamera) this.barcodeScanner.stop();
     this.barcode = result.codeResult.code;
     if (String(this.externalData).indexOf('consulta') > -1) {
       this.consultar();
     } else if (this.externalData === 'retornaBarcode') {
-      this.barcodeScanner.stop();
+      if(this.habilitarCamera) this.barcodeScanner.stop();
     }
   }
 

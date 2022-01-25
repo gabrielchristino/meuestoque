@@ -26,6 +26,8 @@ export class EstoqueService {
   private _user: any;
   private _loja: any;
   private _cookieCamera: any;
+  private _habilitarCamera: any;
+  private _habilitarTeclado: any;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -147,12 +149,32 @@ export class EstoqueService {
   }
 
   get cookieCamera() {
-    this._cookieCamera = this.cookieService.get('cookieCamera');
+    this._cookieCamera = localStorage.getItem('cookieCamera');
     return this._cookieCamera;
   }
 
   set cookieCamera(cookieCameraValor: any) {
-    this.cookieService.set('cookieCamera', cookieCameraValor);
-    this._cookieCamera = this._cookieCamera = this.cookieService.get('cookieCamera');
+    localStorage.setItem('cookieCamera', cookieCameraValor);
+    this._cookieCamera = this._cookieCamera = localStorage.getItem('cookieCamera');
+  }
+
+  get habilitarCamera() {
+    this._habilitarCamera = localStorage.getItem('habilitarCamera');
+    return this._habilitarCamera;
+  }
+
+  set habilitarCamera(habilitarCamera: any) {
+    localStorage.setItem('habilitarCamera', habilitarCamera);
+    this._habilitarCamera = this._habilitarCamera = localStorage.getItem('habilitarCamera');
+  }
+
+  get habilitarTeclado() {
+    this._habilitarTeclado = localStorage.getItem('habilitarTeclado');
+    return this._habilitarTeclado;
+  }
+
+  set habilitarTeclado(habilitarTeclado: any) {
+    localStorage.setItem('habilitarTeclado', habilitarTeclado);
+    this._habilitarTeclado = this._habilitarTeclado = localStorage.getItem('habilitarTeclado');
   }
 }

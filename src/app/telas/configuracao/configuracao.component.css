@@ -35,4 +35,6 @@
   display: flex;
   justify-content: center;
 }
-
+::ng-deep .mat-checkbox-label {
+  white-space: normal;
+}

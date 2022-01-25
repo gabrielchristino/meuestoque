@@ -26,7 +26,18 @@
 }
 .linhaButton {
   justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 52px;
+  align-items: center;
+  box-sizing: content-box;
 }
 button {
   margin: 4px !important;
+}
+.p80Width {
+  width: 80%;
+}
+.mat-badge-content {
+  font-family: 'Material Icons';
 }

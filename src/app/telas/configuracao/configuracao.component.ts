@@ -14,6 +14,9 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean = false;
 
+  habilitarCamera: boolean = false;
+  habilitarTeclado: boolean = false;
+
   configuracao: any = {
     camera: '',
     cameras: []
@@ -55,12 +58,18 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.barcodeScanner.start();
-    }, 1000);
+    this.habilitarCamera = this.estoqueService.habilitarCamera == 'true';
+    this.habilitarTeclado = this.estoqueService.habilitarTeclado == 'true';
+    if (this.habilitarCamera && this.cameraSelecionada) {
+      setTimeout(() => {
+        this.barcodeScanner.start();
+      }, 1000);
+    }
+
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.estoqueService.cookieCamera) {
       this.cameraSelecionada = this.estoqueService.cookieCamera;
     }
@@ -68,7 +77,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   }
 
   getCameras() {
-    let index:number = 1;
+    let index: number = 1;
     navigator.mediaDevices.enumerateDevices()
       .then((devices) => {
         devices.forEach((device) => {
@@ -80,16 +89,31 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
             this.configuracao.cameras.push(camera);
             index++;
           }
+          if(this.configuracao.cameras.length > 0 && !this.cameraSelecionada){
+            this.cameraSelecionada = this.configuracao.cameras[0].deviceId;
+          }
+          this.isLoading = false;
         });
       })
       .catch(function (err) { });
   }
 
+  enableCamera(deviceId: any) {
+    if(this.habilitarCamera && this.cameraSelecionada){
+    setTimeout(() => {
+      this.cameraSelecionada = deviceId;
+      this.barcodeScanner.start();
+    }, 1000);
+  } else {
+    this.barcodeScanner.stop();
+  }
+  }
+
   setCamera(evento: any) {
     this.barcodeScanner.stop();
     setTimeout(() => {
-    this.cameraSelecionada = evento.value;
-    this.barcodeScanner.start();
+      this.cameraSelecionada = evento.value;
+      this.barcodeScanner.start();
     }, 1000);
 
   }
@@ -98,6 +122,8 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
     // this.isLoading = true;
     // this.isLoading = false;
     this.estoqueService.cookieCamera = this.cameraSelecionada;
+    this.estoqueService.habilitarCamera = this.habilitarCamera;
+    this.estoqueService.habilitarTeclado = this.habilitarTeclado;
   }
 
   onValueChanges(result: any) {
