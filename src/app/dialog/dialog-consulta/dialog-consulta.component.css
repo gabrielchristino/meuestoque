@@ -16,3 +16,7 @@ form {
   margin: auto;
   min-width: 240px;
 }
+
+button {
+  margin: 4px !important;
+}
