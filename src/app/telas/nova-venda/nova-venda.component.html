@@ -57,8 +57,8 @@
       <p class="infoBotton"><b>Total</b></p>
       <p class="infoBotton">{{valorTotal|currency:"BRL"}}</p>
     </span>
-    <button mat-flat-button color="primary" matTooltip="Pressione 'N' para um novo item" (click)="exibirAlerta()"><u>N</u><span>ovo item</span></button>
-    <button mat-flat-button color="accent" matTooltip="Pressione 'F' para fechar a compra" [disabled]="dataSource.data.length == 0" (click)="fecharCompra()"><u>F</u><span>echar venda</span></button>
+    <button mat-raised-button color="primary" matTooltip="Pressione 'N' para um novo item" (click)="exibirAlerta()"><u>N</u><span>ovo item</span></button>
+    <button mat-raised-button color="accent" matTooltip="Pressione 'F' para fechar a compra" [disabled]="dataSource.data.length == 0" (click)="fecharCompra()"><u>F</u><span>echar venda</span></button>
   </div>
 
 </div>
