@@ -77,6 +77,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   }
 
   setCamera(evento: any){
+    this.estoqueService.cookieCamera = evento.value;
     this.barcodeScanner.start();
   }
 
