@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { estoqueItens } from '../compartilhado/models/estoqueItens.model';
 import { loja } from '../compartilhado/models/loja.model';
@@ -24,6 +25,7 @@ export class EstoqueService {
   private _usuario: any;
   private _user: any;
   private _loja: any;
+  private _cookieCamera: any;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -37,6 +39,7 @@ export class EstoqueService {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
+    private cookieService: CookieService
     ) { }
 ////consuta estoque
   public sendGetRequest(): Observable<any> {
@@ -141,5 +144,15 @@ export class EstoqueService {
 
   set user(user: any) {
     this._user = user;
+  }
+
+  get cookieCamera() {
+    this._cookieCamera = this.cookieService.get('cookieCamera');
+    return this._cookieCamera;
+  }
+
+  set cookieCamera(cookieCameraValor: any) {
+    this.cookieService.set('cookieCamera', cookieCameraValor);
+    this._cookieCamera = this._cookieCamera = this.cookieService.get('cookieCamera');
   }
 }

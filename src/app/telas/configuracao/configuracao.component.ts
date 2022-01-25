@@ -15,8 +15,11 @@ export class ConfiguracaoComponent implements OnInit {
   isLoading: boolean = false;
 
   configuracao: any = {
-    camera: []
+    camera: '',
+    cameras: []
   }
+
+
 
   resultado: string = '';
 
@@ -55,33 +58,32 @@ export class ConfiguracaoComponent implements OnInit {
   }
 
   getCameras() {
-    let backCamID: any = null;
-    let last_camera: any = null;
+
     navigator.mediaDevices.enumerateDevices()
       .then((devices) => {
         devices.forEach((device) => {
-          if (device.kind == "videoinput" && device.label.match(/back/) !== null) {
-            backCamID = device.deviceId;
-            console.log('back', device);
-          }
           if (device.kind === "videoinput") {
-            last_camera = device.deviceId;
-            console.log('camera', device);
-            this.configuracao.camera.push(device);
+            this.configuracao.cameras.push(device);
           }
         });
-        if (backCamID === null) {
-          backCamID = last_camera;
+        this.configuracao.camera = this.estoqueService.cookieCamera;
+        if(this.configuracao.camera !== undefined && this.configuracao.camera !== '') {
+          this.setCamera();
         }
       })
       .catch(function (err) { });
   }
 
+  setCamera(){
+    this.estoqueService.cookieCamera = this.configuracao.camera;
+    this.barcodeScanner.stop();
+    this.barcodeScanner.start();
+  }
+
   salvarItem() {
+
     this.isLoading = true;
     this.isLoading = false;
-    this.barcodeScanner.start();
-
   }
 
   onValueChanges(result: any) {

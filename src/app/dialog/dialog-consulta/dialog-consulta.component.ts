@@ -45,7 +45,7 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
-    private estoqueService: EstoqueService,
+    public estoqueService: EstoqueService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,

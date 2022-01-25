@@ -18,7 +18,7 @@
   width: 90%;
 }
 .item-full-width2 {
-  width: calc(100% - 40px);
+  width: 50%;
 }
 .barcode-line {
   width: 90%;

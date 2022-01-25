@@ -4,19 +4,27 @@
 <br>
 <div *ngIf="!isLoading" class="tela">
 
-  {{configuracao.camera|json}}
-
-  <barcode-scanner-livestream [config]="config" [deviceId]="configuracao.camera"
-    [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
-  </barcode-scanner-livestream>
-
   <form class="item-form">
-    <mat-form-field class="item-full-width" appearance="fill">
-      <mat-label>Escolha a câmera para escanear os códigos</mat-label>
-      <input (keydown.enter)="salvarItem()" type="text" autocomplete="off" matInput placeholder="Escolha uma câmera"
-        name="nameUser" [(ngModel)]="configuracao.camera">
+    <mat-form-field appearance="fill" class="item-full-width">
+      <mat-label>Aqui você pode mudar a câmera para escanear os códigos</mat-label>
+      <mat-select [(ngModel)]="configuracao.camera" name="camera" (selectionChange)="setCamera()">
+        <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera.deviceId">
+          {{camera.label}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Veja aqui se o código está digitalizando corretamente</mat-label>
+      <input type="number" autocomplete="off" matInput
+        disabled
+        placeholder="Ex. 123456789" name="description" [(ngModel)]="resultado">
+    </mat-form-field>
+
+    <barcode-scanner-livestream class="item-full-width2" [config]="config" [deviceId]="configuracao.camera"
+      [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
+    </barcode-scanner-livestream>
   </form>
+
   <span class="spacer"></span>
   <div class="buttons">
     <button mat-flat-button color="accent" (click)="salvarItem()">Salvar</button>

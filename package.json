@@ -28,6 +28,7 @@
     "html-to-image": "^1.9.0",
     "ng-qrcode": "^6.0.0",
     "ngx-barcode-scanner": "^0.3.0",
+    "ngx-cookie-service": "^13.1.2",
     "ngx-print": "^1.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
