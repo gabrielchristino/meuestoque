@@ -7,7 +7,7 @@
   <form class="item-form">
     <mat-form-field appearance="fill" class="item-full-width" *ngIf="configuracao.cameras.length > 0">
       <mat-label>Aqui você pode mudar a câmera para escanear os códigos</mat-label>
-      <mat-select [(ngModel)]="estoqueService.cookieCamera" name="camera" (selectionChange)="setCamera($event)">
+      <mat-select [(ngModel)]="cameraSelecionada" name="camera" (selectionChange)="setCamera($event)">
         <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera.deviceId">
           {{camera.label}}
         </mat-option>
@@ -20,7 +20,7 @@
         placeholder="Ex. 123456789" name="description" [(ngModel)]="resultado">
     </mat-form-field>
 
-    <barcode-scanner-livestream class="item-full-width2" [config]="config" [deviceId]="estoqueService.cookieCamera"
+    <barcode-scanner-livestream class="item-full-width2" [config]="config" [deviceId]="cameraSelecionada"
       [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
     </barcode-scanner-livestream>
   </form>
