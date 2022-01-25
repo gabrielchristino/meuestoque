@@ -57,7 +57,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.barcodeScanner.start();
-    }, 100);
+    }, 1000);
   }
 
   ngOnInit(): void {
@@ -86,7 +86,11 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   }
 
   setCamera(evento: any) {
-    this.cameraSelecionada = evento.value.deviceId;
+    this.cameraSelecionada = evento.value;
+    this.barcodeScanner.start();
+    this.cameraSelecionada = evento.value;
+    this.barcodeScanner.start();
+    this.cameraSelecionada = evento.value;
     this.barcodeScanner.start();
 
   }
