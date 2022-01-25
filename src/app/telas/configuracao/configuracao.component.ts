@@ -86,12 +86,11 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   }
 
   setCamera(evento: any) {
+    this.barcodeScanner.stop();
+    setTimeout(() => {
     this.cameraSelecionada = evento.value;
     this.barcodeScanner.start();
-    this.cameraSelecionada = evento.value;
-    this.barcodeScanner.start();
-    this.cameraSelecionada = evento.value;
-    this.barcodeScanner.start();
+    }, 1000);
 
   }
 
