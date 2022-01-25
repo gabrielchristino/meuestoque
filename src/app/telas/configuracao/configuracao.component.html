@@ -1,0 +1,19 @@
+<div class="loadingSet" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<br>
+<div *ngIf="!isLoading" class="tela">
+
+  {{configuracao.camera|json}}
+  <form class="item-form">
+    <mat-form-field class="item-full-width" appearance="fill">
+      <mat-label>Escolha a câmera para escanear os códigos</mat-label>
+      <input (keydown.enter)="salvarItem()" type="text" autocomplete="off" matInput placeholder="Escolha uma câmera"
+        name="nameUser" [(ngModel)]="configuracao.camera">
+    </mat-form-field>
+  </form>
+  <span class="spacer"></span>
+  <div class="buttons">
+    <button mat-flat-button color="accent" (click)="salvarItem()">Salvar</button>
+  </div>
+</div>

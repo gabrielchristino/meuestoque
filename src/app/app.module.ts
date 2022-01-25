@@ -53,6 +53,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { CadastroUsuarioLojaComponent } from './telas/cadastro-usuario-loja/cadastro-usuario-loja.component';
 import { DialogQrcodeComponent } from './dialog/dialog-qrcode/dialog-qrcode.component';
 import { QrCodeModule } from 'ng-qrcode';
+import { ConfiguracaoComponent } from './telas/configuracao/configuracao.component';
 
 registerLocaleData(localePT);
 
@@ -72,7 +73,8 @@ registerLocaleData(localePT);
     HomePageComponent,
     LoginPageComponent,
     CadastroUsuarioLojaComponent,
-    DialogQrcodeComponent
+    DialogQrcodeComponent,
+    ConfiguracaoComponent
   ],
   imports: [
 

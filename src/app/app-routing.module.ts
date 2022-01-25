@@ -6,6 +6,7 @@ import { HomePageComponent } from './telas/home-page/home-page.component';
 import { ItemEditarComponent } from './telas/item-editar/item-editar.component';
 import { novaVendaComponent } from './telas/nova-venda/nova-venda.component';
 import { CadastroUsuarioLojaComponent } from './telas/cadastro-usuario-loja/cadastro-usuario-loja.component';
+import { ConfiguracaoComponent } from './telas/configuracao/configuracao.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'cupomPage', component: CupomComponent },
   { path: 'editaItem/:barcode', component: ItemEditarComponent },
   { path: 'cadastro', component: CadastroUsuarioLojaComponent },
+  { path: 'configuracao', component: ConfiguracaoComponent },
 ];
 
 @NgModule({
