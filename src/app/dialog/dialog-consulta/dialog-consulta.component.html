@@ -24,6 +24,7 @@
 <div class="barcode-scanner">
 
 <barcode-scanner-livestream [config]="config"
+[deviceId]="estoqueService.cookieCamera"
  [type]="['code_128', 'code_39', 'ean_8', 'ean']"
  (valueChanges)="onValueChanges($event)" (started)="(onStarted)"
  [errorFilter]="{ median: median, threshold: threshold }">

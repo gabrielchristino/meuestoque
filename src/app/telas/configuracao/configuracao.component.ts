@@ -66,24 +66,25 @@ export class ConfiguracaoComponent implements OnInit {
             this.configuracao.cameras.push(device);
           }
         });
-        this.configuracao.camera = this.estoqueService.cookieCamera;
-        if(this.configuracao.camera !== undefined && this.configuracao.camera !== '') {
-          this.setCamera();
+        if(this.estoqueService.cookieCamera !== undefined && this.estoqueService.cookieCamera !== '') {
+          this.configuracao.camera = this.estoqueService.cookieCamera;
+          this.barcodeScanner.stop();
+          this.barcodeScanner.start();
         }
       })
       .catch(function (err) { });
   }
 
-  setCamera(){
-    this.estoqueService.cookieCamera = this.configuracao.camera;
+  setCamera(evento: any){
+    this.configuracao.camera = evento.value;
     this.barcodeScanner.stop();
     this.barcodeScanner.start();
   }
 
   salvarItem() {
-
     this.isLoading = true;
     this.isLoading = false;
+    this.estoqueService.cookieCamera = this.configuracao.camera;
   }
 
   onValueChanges(result: any) {
