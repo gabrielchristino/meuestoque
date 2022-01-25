@@ -19,7 +19,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
     cameras: []
   }
 
-  cameraSelecionada: string = '';
+  cameraSelecionada: any;
 
 
   resultado: string = '';
@@ -55,13 +55,15 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void {
-    if (this.estoqueService.cookieCamera) {
-      this.cameraSelecionada = this.estoqueService.cookieCamera;
+    setTimeout(() => {
       this.barcodeScanner.start();
-    }
+    }, 100);
   }
 
   ngOnInit(): void {
+    if (this.estoqueService.cookieCamera) {
+      this.cameraSelecionada = this.estoqueService.cookieCamera;
+    }
     this.getCameras();
   }
 
@@ -84,10 +86,9 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   }
 
   setCamera(evento: any) {
-    this.cameraSelecionada = '';
-    this.barcodeScanner.stop();
-    this.cameraSelecionada = evento.value;
+    this.cameraSelecionada = evento.value.deviceId;
     this.barcodeScanner.start();
+
   }
 
   salvarItem() {

@@ -7,8 +7,8 @@
   <form class="item-form">
     <mat-form-field appearance="fill" class="item-full-width" *ngIf="configuracao.cameras.length > 0">
       <mat-label>Aqui você pode mudar a câmera para escanear os códigos</mat-label>
-      <mat-select [(ngModel)]="cameraSelecionada" name="camera" (selectionChange)="setCamera($event)">
-        <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera.deviceId">
+      <mat-select (selectionChange)="setCamera($event)" name="camera">
+        <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera">
           {{camera.label}}
         </mat-option>
       </mat-select>
