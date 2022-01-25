@@ -24,7 +24,7 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
   // barcodeTypes: string[] = ['code_128','code_39','code_39_vin','ean','ean_extended','ean_8','upc','upc_e','codabar','i2of5','2of5','code_93']
 
   public config: QuaggaJSConfigObject = {
-    frequency: 3,
+    frequency: 5,
     debug: true,
     decoder: {
       debug: {

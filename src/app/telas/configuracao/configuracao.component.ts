@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { QuaggaJSConfigObject } from '@ericblade/quagga2';
 import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
@@ -10,7 +10,7 @@ import { UtilsService } from 'src/app/servicos/utils.service';
   templateUrl: './configuracao.component.html',
   styleUrls: ['./configuracao.component.css']
 })
-export class ConfiguracaoComponent implements OnInit {
+export class ConfiguracaoComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean = false;
 
@@ -27,7 +27,7 @@ export class ConfiguracaoComponent implements OnInit {
   barcodeScanner!: BarcodeScannerLivestreamComponent;
 
   public config: QuaggaJSConfigObject = {
-    frequency: 3,
+    frequency: 5,
     debug: true,
     decoder: {
       debug: {
@@ -53,6 +53,12 @@ export class ConfiguracaoComponent implements OnInit {
     private utilsService: UtilsService,
   ) { }
 
+  ngAfterViewInit(): void {
+      if(this.estoqueService.cookieCamera) {
+        this.barcodeScanner.start();
+      }
+  }
+
   ngOnInit(): void {
     this.getCameras();
   }
@@ -66,25 +72,18 @@ export class ConfiguracaoComponent implements OnInit {
             this.configuracao.cameras.push(device);
           }
         });
-        if(this.estoqueService.cookieCamera !== undefined && this.estoqueService.cookieCamera !== '') {
-          this.configuracao.camera = this.estoqueService.cookieCamera;
-          this.barcodeScanner.stop();
-          this.barcodeScanner.start();
-        }
       })
       .catch(function (err) { });
   }
 
   setCamera(evento: any){
-    this.configuracao.camera = evento.value;
-    this.barcodeScanner.stop();
     this.barcodeScanner.start();
   }
 
   salvarItem() {
-    this.isLoading = true;
-    this.isLoading = false;
-    this.estoqueService.cookieCamera = this.configuracao.camera;
+    // this.isLoading = true;
+    // this.isLoading = false;
+    // this.estoqueService.cookieCamera = this.configuracao.camera;
   }
 
   onValueChanges(result: any) {
