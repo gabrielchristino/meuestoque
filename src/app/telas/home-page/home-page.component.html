@@ -1,16 +1,7 @@
 <div class="profile">
-  <!-- <div class="profile2" *ngIf="auth.user$ | async as user">
-    <img class="profilepic" [src]="user.picture">
-    <h1>{{user.given_name || user.nickname}}</h1>
-    <h2>{{user.email}}</h2>
-    <h3>{{estoqueService.loja.name}}</h3>
-    <h4>{{estoqueService.loja.description}}</h4>
-  </div> -->
-
   <div class="profile2" *ngIf="estoqueService.user">
     <img class="profilepic" [src]="estoqueService.user.photoUrl">
     <h1>{{estoqueService.user.firstName || estoqueService.user.name}}</h1>
-    <h2>{{estoqueService.user.email}}</h2>
     <h3>{{estoqueService.loja.name}}</h3>
     <h4>{{estoqueService.loja.description}}</h4>
   </div>
