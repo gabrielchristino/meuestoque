@@ -28,6 +28,7 @@ export class EstoqueService {
   private _cookieCamera: any;
   private _habilitarCamera: any;
   private _habilitarTeclado: any;
+  private _avisosLidos: any;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -103,6 +104,10 @@ export class EstoqueService {
     return this.httpClient.post(this.urlBase + 'vendas', JSON.stringify(venda), this.httpOptions);
   }
 
+////consuta avisos
+public sendGetAvisosRequest(): Observable<any> {
+  return this.httpClient.get(this.urlBase + 'avisos', this.httpOptions);
+}
 ////navigate
   public navigateTo(rota:string){
     this.router.navigate([`/${rota}`], { relativeTo: this.route, skipLocationChange: true });
@@ -176,5 +181,15 @@ export class EstoqueService {
   set habilitarTeclado(habilitarTeclado: any) {
     localStorage.setItem('habilitarTeclado', habilitarTeclado);
     this._habilitarTeclado = this._habilitarTeclado = localStorage.getItem('habilitarTeclado');
+  }
+
+  get avisosLidos() {
+    this._avisosLidos = localStorage.getItem('avisosLidos');
+    return this._avisosLidos;
+  }
+
+  set avisosLidos(avisosLidos: any) {
+    localStorage.setItem('avisosLidos', avisosLidos);
+    this._avisosLidos = this._avisosLidos = localStorage.getItem('avisosLidos');
   }
 }

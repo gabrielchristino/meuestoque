@@ -16,11 +16,25 @@
   </div>
 
   <span class="spacer"></span>
-  <span matBadge="feedback" matBadgePosition="before" matBadgeColor="primary" class="p80Width">
-    <mat-card>Sempre que você quiser, você pode acessar as Configurações da câmera, teclado entre outros, pelo menu no
-      canto superior direito, em Configurações</mat-card>
-  </span>
+
+  <div class="cardsNotif">
+    <span class="spacer2"></span>
+    <span *ngFor="let aviso of listaAvisos" [matBadge]="aviso.icon" matBadgePosition="before"
+      [matBadgeColor]="aviso.color === 'primary' ? 'primary':aviso.color === 'accent' ? 'accent':'warn'"
+      class="p80Width">
+      <mat-card>
+        <div [innerHTML]="aviso.mesage"></div>
+        <div class="linhaButtonCard">
+          <button class="buttonCard" mat-button aria-label="lido" color="primary" (click)="markAsRead(aviso)">
+            <mat-icon>done</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </span>
+  </div>
+
   <span class="spacer"></span>
+
   <div class="linhaButton">
     <button mat-raised-button color="accent" matTooltip="Inicie uma nova venda" aria-label="edit"
       (click)="estoqueService.navigateTo('novaVenda')">

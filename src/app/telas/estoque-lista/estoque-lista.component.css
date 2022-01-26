@@ -9,6 +9,10 @@
 table {
   width: 100%;
 }
+.scrollTable {
+  overflow-y: auto;
+  max-height: calc(100% - 90px);
+}
 .cabecalhoColunaEstoque {
   text-align: left;
 }
@@ -30,7 +34,7 @@ table {
 .tela{
   display: flex;
   flex-direction: column;
-  height: calc(100% - 70px);
+  height: calc(100% - 56px);
 }
 .buttons {
   display: flex;

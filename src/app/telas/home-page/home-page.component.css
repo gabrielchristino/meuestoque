@@ -24,6 +24,10 @@
 .spacer {
   flex: 1 1 auto;
 }
+.spacer2 {
+  height: 7px;
+  margin: 7px;
+}
 .linhaButton {
   justify-content: center;
   display: flex;
@@ -32,12 +36,32 @@
   align-items: center;
   box-sizing: content-box;
 }
+.linhaButtonCard {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  box-sizing: content-box;
+}
 button {
   margin: 4px !important;
 }
+.buttonCard {
+  margin: 0 !important;
+  min-height: 0 !important;
+  line-height: 20px !important;
+}
 .p80Width {
   width: 80%;
+  margin-bottom: 14px;
 }
 .mat-badge-content {
   font-family: 'Material Icons';
+}
+.cardsNotif {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
 }

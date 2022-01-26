@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogConsultaComponent } from '../../dialog/dialog-consulta/dialog-consulta.component';
 import { EstoqueService } from 'src/app/servicos/estoque.service';
+import { avisos } from 'src/app/compartilhado/models/avisos.model';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-home-page',
@@ -9,7 +11,8 @@ import { EstoqueService } from 'src/app/servicos/estoque.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-
+  public listaAvisos: avisos[] = [];
+  public ThemePalette: ThemePalette;
   constructor(
     public dialog: MatDialog,
     public estoqueService: EstoqueService,
@@ -33,6 +36,23 @@ export class HomePageComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.estoqueService.sendGetAvisosRequest()
+      .subscribe((avisos: avisos[]) => {
+        if (this.estoqueService.avisosLidos) {
+          this.listaAvisos = avisos.filter((aviso: avisos) => {
+            return !this.estoqueService.avisosLidos?.includes(aviso._id);
+          });
+        } else {
+          this.listaAvisos = avisos;
+        }
+      });
+  }
+
+  markAsRead(aviso: avisos) {
+    this.estoqueService.avisosLidos = this.estoqueService.avisosLidos + ',' + aviso._id;
+    this.listaAvisos = this.listaAvisos.filter((aviso: avisos) => {
+      return !this.estoqueService.avisosLidos?.includes(aviso._id);
+    });
   }
 
   consultaPreco() {
