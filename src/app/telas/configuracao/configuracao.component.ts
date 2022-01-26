@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { QuaggaJSConfigObject } from '@ericblade/quagga2';
 import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
+import { DialogConfirmComponent } from 'src/app/dialog/dialog-confirm/dialog-confirm.component';
 import { EstoqueService } from 'src/app/servicos/estoque.service';
 import { UtilsService } from 'src/app/servicos/utils.service';
 
@@ -89,7 +90,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
             this.configuracao.cameras.push(camera);
             index++;
           }
-          if(this.configuracao.cameras.length > 0 && !this.cameraSelecionada){
+          if (this.configuracao.cameras.length > 0 && !this.cameraSelecionada) {
             this.cameraSelecionada = this.configuracao.cameras[0].deviceId;
           }
           this.isLoading = false;
@@ -99,14 +100,14 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   }
 
   enableCamera(deviceId: any) {
-    if(this.habilitarCamera && this.cameraSelecionada){
-    setTimeout(() => {
-      this.cameraSelecionada = deviceId;
-      this.barcodeScanner.start();
-    }, 1000);
-  } else {
-    this.barcodeScanner.stop();
-  }
+    if (this.habilitarCamera && this.cameraSelecionada) {
+      setTimeout(() => {
+        this.cameraSelecionada = deviceId;
+        this.barcodeScanner.start();
+      }, 1000);
+    } else {
+      this.barcodeScanner.stop();
+    }
   }
 
   setCamera(evento: any) {
@@ -124,6 +125,34 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
     this.estoqueService.cookieCamera = this.cameraSelecionada;
     this.estoqueService.habilitarCamera = this.habilitarCamera;
     this.estoqueService.habilitarTeclado = this.habilitarTeclado;
+  }
+
+  limparDados() {
+
+    try {
+      this.isLoading = true;
+      const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      const dialogRef = this.dialog.open(DialogConfirmComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(
+        data => {
+          if (data) {
+            this.estoqueService.cookieCamera = '';
+            this.estoqueService.habilitarCamera = '';
+            this.estoqueService.habilitarTeclado = '';
+            this.estoqueService.avisosLidos = '';
+            this.isLoading = false;
+          } else {
+            this.isLoading = false;
+          }
+        }
+      );
+    } catch (e) {
+      this.utilsService.showError(String(e));
+    }
   }
 
   onValueChanges(result: any) {

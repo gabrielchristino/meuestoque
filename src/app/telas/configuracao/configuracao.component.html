@@ -8,6 +8,7 @@
     <section appearance="fill" class="item-full-width">
       <mat-checkbox name="keyboardenable" [(ngModel)]="habilitarTeclado" color="primary">Habilitar o foco na caixa de texto automaticamente ao abrir um pop-up (maior agilidade)</mat-checkbox>
     </section>
+    <br>
     <section appearance="fill" class="item-full-width">
       <mat-checkbox (change)="enableCamera(cameraSelecionada)"  name="cameraenable" [(ngModel)]="habilitarCamera" color="primary">Habilitar camera ao escanear códigos de barras</mat-checkbox>
     </section>
@@ -30,7 +31,14 @@
     <barcode-scanner-livestream *ngIf="habilitarCamera" class="item-full-width2" [config]="config" [deviceId]="cameraSelecionada"
       [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
     </barcode-scanner-livestream>
+
+    <br>
+    <label class="item-full-width">Caso você esteja com algum problema, limpe os dados do aplicativo. Siga com cuidado!</label>
+    <button mat-raised-button color="warn" (click)="limparDados()">Limpar dados</button>
+    <br>
   </form>
+
+
 
   <span class="spacer"></span>
   <div class="buttons">
