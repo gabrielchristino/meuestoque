@@ -50,22 +50,12 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
     if (!this.externalData && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
       const idCamera = this.estoqueService.cookieCamera;
-      navigator.mediaDevices.getUserMedia({ video: {deviceId: { exact: this.estoqueService.cookieCamera }} })
+      navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: this.estoqueService.cookieCamera } } })
         .then((stream: any) => {
           console.log(stream);
           _video.srcObject = stream;
           _video.play();
         });
-
-        navigator.mediaDevices.enumerateDevices()
-      .then((devices) => {
-        devices.forEach((device) => {
-          if (device.kind === "videoinput" && device.deviceId === idCamera) {
-            console.log(device);
-
-          }
-        });
-      });
     }
 
   }
@@ -108,9 +98,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
   }
 
   setPhoto() {
-    let _video = this.videoCamera.nativeElement;
-    _video.
-    this.dialogRef.close(this.photo);
+      this.dialogRef.close(this.photo);
   }
 
 }
