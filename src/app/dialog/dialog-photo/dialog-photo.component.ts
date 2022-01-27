@@ -106,7 +106,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
   }
 
   cancelPhoto() {
-      this.streamCamera.getTracks()[0].stop();
+      if(this.streamCamera) this.streamCamera.getTracks()[0].stop();
       this.dialogRef.close();
   }
 
