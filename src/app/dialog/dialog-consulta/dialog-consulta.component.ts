@@ -69,8 +69,8 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
 
   consultar() {
     try {
+      this.stopCamera();
       if (this.barcode !== '') {
-        if(this.habilitarCamera) this.barcodeScanner.stop();
         if (String(this.externalData).indexOf('retornaBarcode') > -1) {
           this.enviarBarcode()
         } else
@@ -89,7 +89,7 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
                   this.mensagem = 'Tente novamente...';
                   this.barcode = '';
                   this.desabilitarBotaoPesquisar = false;
-                  if(this.habilitarCamera) this.barcodeScanner.start();
+                  this.startCamera();
                 }
               },
                 error => {
@@ -107,25 +107,39 @@ export class DialogConsultaComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    if(this.habilitarCamera) this.barcodeScanner.start();
+    this.startCamera();
   }
 
   tentarNovamente() {
-    if(this.habilitarCamera) this.barcodeScanner.start();
+    this.startCamera();
   }
 
   enviarBarcode() {
+    this.stopCamera();
     this.dialogRef.close(this.barcode);
   }
 
   onValueChanges(result: any) {
-    if(this.habilitarCamera) this.barcodeScanner.stop();
+    this.stopCamera();
     this.barcode = result.codeResult.code;
     if (String(this.externalData).indexOf('consulta') > -1) {
       this.consultar();
     } else if (this.externalData === 'retornaBarcode') {
-      if(this.habilitarCamera) this.barcodeScanner.stop();
+      this.stopCamera();
     }
+  }
+
+  fecharModal(){
+    this.stopCamera();
+    this.dialogRef.close(this.barcode);
+  }
+
+  stopCamera() {
+    if(this.habilitarCamera) this.barcodeScanner.stop();
+  }
+
+  startCamera() {
+    if(this.habilitarCamera) this.barcodeScanner.start();
   }
 
   onStarted(started: any) {
