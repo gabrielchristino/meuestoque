@@ -26,7 +26,8 @@
 <barcode-scanner-livestream *ngIf="habilitarCamera" [config]="config"
 [deviceId]="estoqueService.cookieCamera"
  [type]="['code_128', 'code_39', 'ean_8', 'ean']"
- (valueChanges)="onValueChanges($event)" (started)="(onStarted)"
- [errorFilter]="{ median: median, threshold: threshold }">
+ (valueChanges)="onValueChanges($event)" (started)="(onStarted)">
+
+ <!-- [errorFilter]="{ median: median, threshold: threshold }" -->
 </barcode-scanner-livestream>
 </div>
