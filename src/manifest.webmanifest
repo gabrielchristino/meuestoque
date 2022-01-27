@@ -1,6 +1,6 @@
 {
-  "name": "Meu Estoque",
-  "short_name": "Meu Estoque",
+  "name": "OnStock",
+  "short_name": "OnStock",
   "theme_color": "#673ab7",
   "background_color": "#fafafa",
   "display": "standalone",

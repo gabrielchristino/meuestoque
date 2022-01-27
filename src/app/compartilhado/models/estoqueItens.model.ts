@@ -10,4 +10,5 @@ export class estoqueItens {
   additional2?: string;
   additional3?: string;
   idLoja?: string;
+  photo?: any;
 }

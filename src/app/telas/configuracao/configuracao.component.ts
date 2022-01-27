@@ -60,7 +60,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.habilitarCamera = this.estoqueService.habilitarCamera == 'true';
-    this.habilitarTeclado = this.estoqueService.habilitarTeclado == 'true';
+    this.habilitarTeclado = this.estoqueService.habilitarTeclado == 'true';;
     if (this.habilitarCamera && this.cameraSelecionada) {
       setTimeout(() => {
         this.barcodeScanner.start();

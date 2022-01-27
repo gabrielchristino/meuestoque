@@ -1,0 +1,10 @@
+<div #modalCaptura width="100%">
+  <video id="videoCamera" *ngIf="!exibirFoto" width="100%" #videoCamera autoplay></video>
+<canvas #canvasPhoto hidden></canvas>
+<img [src]="photo" *ngIf="exibirFoto">
+<div mat-dialog-actions>
+  <button mat-raised-button color="accent" (click)="takePhoto()">{{btnCaptura}}</button>
+  <button mat-raised-button color="accent" (click)="setPhoto()">Salvar foto</button>
+  <button mat-raised-button mat-dialog-close>Cancelar</button>
+</div>
+</div>

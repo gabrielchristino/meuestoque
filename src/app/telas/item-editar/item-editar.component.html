@@ -57,6 +57,10 @@
       <input (keydown.enter)="salvarItem()" autocomplete="off" type="number" min="0.00" step='0.01' matInput
         placeholder="Ex. R$10,00" name="price" [(ngModel)]="itemProduto.price">
     </mat-form-field>
+    <div class="buttonsForm">
+      <button mat-raised-button color="primary" (click)="takePhoto(itemProduto.photo)">{{itemProduto.photo? 'Visualizar foto':'Adicionar photo do item'}}</button>
+    </div>
+    <span class="spacer"></span>
   </form>
   <span class="spacer"></span>
   <div class="buttons">

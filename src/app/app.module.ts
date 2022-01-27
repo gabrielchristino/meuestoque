@@ -60,6 +60,7 @@ import { QrCodeModule } from 'ng-qrcode';
 import { ConfiguracaoComponent } from './telas/configuracao/configuracao.component';
 
 import { CookieService } from 'ngx-cookie-service';
+import { DialogPhotoComponent } from './dialog/dialog-photo/dialog-photo.component';
 registerLocaleData(localePT);
 
 @NgModule({
@@ -79,7 +80,8 @@ registerLocaleData(localePT);
     LoginPageComponent,
     CadastroUsuarioLojaComponent,
     DialogQrcodeComponent,
-    ConfiguracaoComponent
+    ConfiguracaoComponent,
+    DialogPhotoComponent
   ],
   imports: [
 

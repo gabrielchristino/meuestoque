@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAlertComponent } from '../../dialog/dialog-alert/dialog-alert.component';
 import { DialogConsultaComponent } from '../../dialog/dialog-consulta/dialog-consulta.component';
 import { UtilsService } from 'src/app/servicos/utils.service';
+import { DialogPhotoComponent } from 'src/app/dialog/dialog-photo/dialog-photo.component';
 
 @Component({
   selector: 'app-item-editar',
@@ -128,7 +129,7 @@ export class ItemEditarComponent implements OnInit, OnChanges {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true'
+    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true';
     dialogConfig.data = 'retornaBarcode';
 
     const dialogRef = this.dialog.open(DialogConsultaComponent, dialogConfig);
@@ -138,6 +139,22 @@ export class ItemEditarComponent implements OnInit, OnChanges {
           this.itemProduto.barcode = data;
         } else {
           this.isLoading = false;
+        }
+      });
+  }
+
+  takePhoto(photo: any) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = photo;
+
+    const dialogRef = this.dialog.open(DialogPhotoComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (data) {
+          this.itemProduto.photo = data;
         }
       });
   }

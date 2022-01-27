@@ -59,7 +59,7 @@ export class HomePageComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true'
+    dialogConfig.autoFocus = this.estoqueService.habilitarTeclado == 'true';
     dialogConfig.data = 'consulta';
 
     const dialogRef = this.dialog.open(DialogConsultaComponent, dialogConfig);
