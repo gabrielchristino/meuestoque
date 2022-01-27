@@ -17,6 +17,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
 
   public exibirFoto: boolean = false;
 
+
   constructor(
     public dialog: MatDialog,
     private utilsService: UtilsService,
@@ -52,7 +53,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
       const idCamera = this.estoqueService.cookieCamera;
       navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: this.estoqueService.cookieCamera } } })
         .then((stream: any) => {
-          console.log(stream);
+          this.streamCamera = stream;
           _video.srcObject = stream;
           _video.play();
         });
@@ -73,8 +74,9 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           let _video = this.videoCamera.nativeElement;
-          navigator.mediaDevices.getUserMedia({ video: true })
+          navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: this.estoqueService.cookieCamera } } })
             .then((stream: any) => {
+              this.streamCamera = stream;
               _video.srcObject = stream;
               _video.play();
               this.btnCaptura = 'Capturar foto';
@@ -98,6 +100,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
   }
 
   setPhoto() {
+      this.streamCamera.getTracks()[0].stop();
       this.dialogRef.close(this.photo);
   }
 

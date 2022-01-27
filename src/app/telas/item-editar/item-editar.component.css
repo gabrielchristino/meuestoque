@@ -32,10 +32,6 @@
   flex: 1 1 auto;
 }
 .buttons {
-  display: flex;
-  justify-content: center;
-}
-.buttonsForm {
   padding-bottom: 1.34375em;
   display: flex;
   justify-content: center;
