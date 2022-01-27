@@ -92,6 +92,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
           }
           if (this.configuracao.cameras.length > 0 && !this.cameraSelecionada) {
             this.cameraSelecionada = this.configuracao.cameras[0].deviceId;
+            this.enableCamera(this.cameraSelecionada);
           }
           this.isLoading = false;
         });
@@ -100,7 +101,7 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   }
 
   enableCamera(deviceId: any) {
-    if (this.habilitarCamera && this.cameraSelecionada) {
+    if (this.cameraSelecionada) {
       setTimeout(() => {
         this.cameraSelecionada = deviceId;
         this.barcodeScanner.start();
