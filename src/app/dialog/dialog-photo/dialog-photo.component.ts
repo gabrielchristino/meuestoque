@@ -16,6 +16,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
   public btnCaptura: string = 'Capturar foto';
 
   public exibirFoto: boolean = false;
+  private hasVideo: any;
 
 
   constructor(
@@ -51,7 +52,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
     if (!this.externalData && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
       const idCamera = this.estoqueService.cookieCamera;
-      navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: this.estoqueService.cookieCamera } } })
+      navigator.mediaDevices.getUserMedia({ video: this.hasVideo })
         .then((stream: any) => {
           this.streamCamera = stream;
           _video.srcObject = stream;
@@ -61,7 +62,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit(): void {
-    this.startCamera();
+    this.hasVideo = this.estoqueService.cookieCamera ? { deviceId: { exact: this.estoqueService.cookieCamera } } : true;
   }
 
   startCamera() {
@@ -74,7 +75,7 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           let _video = this.videoCamera.nativeElement;
-          navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: this.estoqueService.cookieCamera } } })
+          navigator.mediaDevices.getUserMedia({ video: this.hasVideo })
             .then((stream: any) => {
               this.streamCamera = stream;
               _video.srcObject = stream;
@@ -102,6 +103,11 @@ export class DialogPhotoComponent implements OnInit, AfterViewInit {
   setPhoto() {
       this.streamCamera.getTracks()[0].stop();
       this.dialogRef.close(this.photo);
+  }
+
+  cancelPhoto() {
+      this.streamCamera.getTracks()[0].stop();
+      this.dialogRef.close();
   }
 
 }

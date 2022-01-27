@@ -51,7 +51,7 @@ export class CupomComponent implements OnInit, AfterViewInit {
 
       });
 
-      htmlToImage.toPng(document.getElementById('print-section') || htmlVazio)
+      htmlToImage.toPng(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
         .then((dataUrl) => {
           this.cupomArquivo = dataUrl;
           (document.getElementById('print-section') || htmlVazio).innerHTML =
