@@ -32,6 +32,7 @@
   flex: 1 1 auto;
 }
 .buttons {
+  padding-bottom: 1.34375em;
   display: flex;
   justify-content: center;
 }
