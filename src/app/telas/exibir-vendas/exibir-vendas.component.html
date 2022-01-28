@@ -44,9 +44,28 @@
       <!-- cupom -->
       <ng-template matExpansionPanelContent>
         Vendedor {{venda.vendedor}}
-        <div class="noFormat">
-        {{substr(venda.cupom)}}
-      </div>
+        <div class="noFormat" id="print-section">
+          {{substr(venda.cupom)}}
+        </div>
+
+        <span class="linhaButton">
+          <form class="item-form">
+            <mat-form-field class="item-full-width2" appearance="fill">
+              <mat-label>Telefone para envio com DDD+Número</mat-label>
+              <input type="number" autocomplete="off" matInput placeholder="Ex. 11999998888" name="email"
+                [(ngModel)]="telefoneCliente">
+            </mat-form-field>
+          </form>
+          <button mat-mini-fab color="primary" [disabled]="!telefoneCliente" (click)="enviarWA()">
+            <mat-icon>whatsapp</mat-icon>
+          </button>
+        </span>
+        <span class="linhaButton">
+          <button mat-mini-fab color="primary" (click)="compartilhar()">
+            <mat-icon>share</mat-icon>
+          </button>
+        </span>
+
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { venda } from 'src/app/compartilhado/models/venda.model';
 import { EstoqueService } from 'src/app/servicos/estoque.service';
 import { UtilsService } from 'src/app/servicos/utils.service';
+import * as htmlToImage from 'html-to-image';
 
 @Component({
   selector: 'app-exibir-vendas',
@@ -14,6 +15,7 @@ export class ExibirVendasComponent implements OnInit {
 
   public isLoading: boolean = false;
   public vendas: venda[] = [];
+  telefoneCliente: any;
 
   constructor(
     private router: Router,
@@ -38,4 +40,22 @@ export class ExibirVendasComponent implements OnInit {
     return String(valor).substring(0,1) === ' ' ? String(valor).substring(1) : String(valor);
   }
 
+  enviarWA() {
+    let htmlVazio: any;
+    htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
+    .then((blobFile:any)=>{
+      this.estoqueService.salvaCupom(blobFile)
+      .subscribe((arquivoUrl:string)=>{
+        window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! Ele ficará disponível por 30 dias\n${arquivoUrl}`)}`,'_blank');
+      });
+    })
+  }
+
+  compartilhar() {
+    const shareData = {
+      title: 'Cupom',
+      text: String(document.getElementById('print-section')?.innerText),
+    };
+    navigator.share(shareData);
+  }
 }

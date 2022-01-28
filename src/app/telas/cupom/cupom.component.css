@@ -48,8 +48,10 @@ th {
   flex: 1 1 auto;
 }
 .linhaButton {
+  display: flex;
   justify-content: center;
-  width: 100%;
+  align-items: flex-start;
+  width: 90%;
 }
 button {
   margin: 5px;
@@ -67,4 +69,8 @@ pre {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.item-full-width2 {
+  width: calc(100% - 10px);
 }

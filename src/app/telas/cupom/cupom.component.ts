@@ -73,22 +73,18 @@ export class CupomComponent implements OnInit, AfterViewInit {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
   }
-  imprimirCupom() {
-    // this.estoqueService.compraFechada = true;
-    // this.showError('Impresso com sucesso!', 'novaVenda');
-  }
   enviarWA() {
     let htmlVazio: any;
     htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
     .then((blobFile:any)=>{
       this.estoqueService.salvaCupom(blobFile)
       .subscribe((arquivoUrl:string)=>{
-        window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! ${arquivoUrl}`)}`,'_blank');
+        window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! Ele ficará disponível por 30 dias\n${arquivoUrl}`)}`,'_blank');
       });
     })
   }
   enviarEmail() {
-    // let htmlVazio: any;
+    let htmlVazio: any;
     // const filesArray = [
     //   new File(
     //     [this.cupomArquivo],
@@ -99,15 +95,14 @@ export class CupomComponent implements OnInit, AfterViewInit {
     //     }
     //   )
     // ];
-    // const shareData = {
-    //   files: filesArray,
-    //   title: 'Cupom',
-    //   text: 'Segue seu cupom.',
-    // };
-    // navigator.share(shareData);
+    const shareData = {
+      title: 'Cupom',
+      text: String(document.getElementById('print-section')?.innerText),
+    };
+    navigator.share(shareData);
 
-    let corpoEmail: string = `mailto:${this.emailCliente}?subject=Bem vindo a ${this.estoqueService.loja.name}&body=<p>Obrigado por comprar com a gente!</p><img src\"${this.cupomArquivo}\">`;
-    window.open(encodeURI(corpoEmail), '_blank');
+    // let corpoEmail: string = `mailto:${this.emailCliente}?subject=Bem vindo a ${this.estoqueService.loja.name}&body=<p>Obrigado por comprar com a gente!</p><img src\"${this.cupomArquivo}\">`;
+    // window.open(encodeURI(corpoEmail), '_blank');
     // this.estoqueService.sendEmail(document.getElementById('print-section') || htmlVazio, this.emailCliente)
     //   .subscribe((resultado: any) => {
     //     // this.showError('Enviado email com sucesso!', 'novaVenda');

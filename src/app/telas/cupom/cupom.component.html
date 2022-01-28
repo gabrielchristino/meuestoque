@@ -44,18 +44,30 @@
   <span class="spacer"></span>
   <span class="linhaButton">
     <form class="item-form">
-      <!-- <mat-form-field class="item-full-width" appearance="fill">
-        <mat-label>Email para envio</mat-label>
-        <input type="email" autocomplete="off" matInput placeholder="Ex. teste@gmail.com" name="email"
-          [(ngModel)]="emailCliente">
-      </mat-form-field> -->
-      <mat-form-field class="item-full-width" appearance="fill">
+      <mat-form-field class="item-full-width2" appearance="fill">
         <mat-label>Telefone para envio com DDD+Número</mat-label>
         <input type="number" autocomplete="off" matInput placeholder="Ex. 11999998888" name="email"
           [(ngModel)]="telefoneCliente">
       </mat-form-field>
     </form>
+    <button mat-mini-fab color="primary" [disabled]="!telefoneCliente" (click)="enviarWA()">
+      <mat-icon>whatsapp</mat-icon>
+    </button>
   </span>
-  <button mat-raised-button color="primary" (click)="enviarWA()">Enviar Whatsapp</button>
+  <span class="linhaButton">
+    <button mat-mini-fab color="primary" (click)="enviarEmail()">
+      <mat-icon>share</mat-icon>
+    </button>
+  </span>
 
+  <!-- <span class="spacer"></span>
+  <span class="linhaButton">
+    <form class="item-form">
+      <mat-form-field class="item-full-width" appearance="fill">
+        <mat-label>Email para envio</mat-label>
+        <input type="email" autocomplete="off" matInput placeholder="Ex. email@email.com" name="email"
+          [(ngModel)]="telefoneCliente">
+      </mat-form-field>
+    </form>
+  </span> -->
 </div>

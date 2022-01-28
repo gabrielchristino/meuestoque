@@ -38,31 +38,35 @@ export class AppComponent implements OnInit {
 
     this.socialAuthService.authState.subscribe((user) => {
       this.estoqueService.user = user;
-        if (this.estoqueService.user !== null) {
-          this.isLoading = true;
-              this.estoqueService.sendGetUserRequest(this.estoqueService.user.email)
-                .subscribe((usuario: any[]) => {
-                  if (usuario.length !== 0) {
-                    this.estoqueService.usuario = usuario![0];
-                    this.estoqueService.sendGetLojaRequest()
-                      .subscribe((loja: any) => {
-                        this.estoqueService.loja = loja[0];
-                        this.isAuthenticated = usuario.length > 0 && usuario[0].active && (this.estoqueService.user != null);
-                        this.router.navigate([`/`], { relativeTo: this.route, skipLocationChange: true });
-                        this.isLoading = false;
-                      });
-                  }else
-                  if (usuario.length === 0) {
-                    this.utilsService.showError('Usuário não cadastrado, faça seu cadastro.');
-                    this.startSignup = true;
-                    this.isLoading = false;
-                  }
-                });
-        } else {
-          this.isAuthenticated = false;
-        }
-      });
+      this.authLogin();
+    });
 
+  }
+
+  authLogin() {
+    if (this.estoqueService.user !== null) {
+      this.isLoading = true;
+      this.estoqueService.sendGetUserRequest(this.estoqueService.user.email)
+        .subscribe((usuario: any[]) => {
+          if (usuario.length !== 0) {
+            this.estoqueService.usuario = usuario![0];
+            this.estoqueService.sendGetLojaRequest()
+              .subscribe((loja: any) => {
+                this.estoqueService.loja = loja[0];
+                this.isAuthenticated = usuario.length > 0 && usuario[0].active && (this.estoqueService.user != null);
+                this.router.navigate([`/`], { relativeTo: this.route, skipLocationChange: true });
+                this.isLoading = false;
+              });
+          } else
+            if (usuario.length === 0) {
+              this.utilsService.showError('Usuário não cadastrado, faça seu cadastro.');
+              this.startSignup = true;
+              this.isLoading = false;
+            }
+        });
+    } else {
+      this.isAuthenticated = false;
+    }
   }
 
   loginWithGoogle(): void {
