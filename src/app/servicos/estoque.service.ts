@@ -8,6 +8,8 @@ import { estoqueItens } from '../compartilhado/models/estoqueItens.model';
 import { loja } from '../compartilhado/models/loja.model';
 import { usuario } from '../compartilhado/models/usuario.model';
 import { venda } from '../compartilhado/models/venda.model';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
 
 export const APP_ID = "estoque-vnaxc";
 
@@ -39,12 +41,13 @@ export class EstoqueService {
 
 
   constructor(
+    private fireStorage: AngularFireStorage,
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     private cookieService: CookieService
-    ) { }
-////consuta estoque
+  ) { }
+  ////consuta estoque
   public sendGetRequest(): Observable<any> {
     return this.httpClient.get(this.urlBase + 'estoque' + `?q={"idLoja":"${this.usuario.idLoja}"}`, this.httpOptions);
   }
@@ -64,7 +67,7 @@ export class EstoqueService {
   public sendPostRequest(produto: estoqueItens): Observable<any> {
     return this.httpClient.post(this.urlBase + 'estoque', JSON.stringify(produto), this.httpOptions);
   }
-////envia email
+  ////envia email
   public sendEmail(cupom: string, email: string): Observable<any> {
     const reqEmail = {
       'to': email,
@@ -75,7 +78,7 @@ export class EstoqueService {
     }
     return this.httpClient.post(this.urlBaseMail, JSON.stringify(reqEmail), this.httpOptions);
   }
-////consulta usuario
+  ////consulta usuario
   public sendGetUserRequest(userMail: string): Observable<any> {
     return this.httpClient.get(this.urlBase + 'controle' + `?q={"email":"${userMail}"}`, this.httpOptions);
   }
@@ -87,9 +90,9 @@ export class EstoqueService {
   public sendPostUserRequest(usuario: usuario): Observable<any> {
     return this.httpClient.post(this.urlBase + 'controle', JSON.stringify(usuario), this.httpOptions);
   }
-////consulta loja
+  ////consulta loja
   public sendGetLojaRequest(idLoja: string = ''): Observable<any> {
-    return this.httpClient.get(this.urlBase + 'loja' + `?q={"_id":"${this.usuario?.idLoja||idLoja}"}`, this.httpOptions);
+    return this.httpClient.get(this.urlBase + 'loja' + `?q={"_id":"${this.usuario?.idLoja || idLoja}"}`, this.httpOptions);
   }
 
   public sendPutLojaRequest(loja: loja): Observable<any> {
@@ -99,20 +102,36 @@ export class EstoqueService {
   public sendPostLojaRequest(loja: loja): Observable<any> {
     return this.httpClient.post(this.urlBase + 'loja', JSON.stringify(loja), this.httpOptions);
   }
-////consulta vendas
+  ////consulta vendas
   public sendPostVendasRequest(venda: venda): Observable<any> {
     return this.httpClient.post(this.urlBase + 'vendas', JSON.stringify(venda), this.httpOptions);
   }
 
-////consuta avisos
-public sendGetAvisosRequest(): Observable<any> {
-  return this.httpClient.get(this.urlBase + 'avisos', this.httpOptions);
-}
-////navigate
-  public navigateTo(rota:string){
+  public salvaCupom(cupom: any): Observable<any> {
+    return new Observable((observer) => {
+
+    const fileRef: AngularFireStorageReference = this.fireStorage.ref("lojas").child(this.usuario.idLoja);
+    const task: AngularFireUploadTask = fileRef.put(cupom);
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe(downloadURL => {
+          observer.next(downloadURL);
+          observer.complete();
+        });
+      })
+    ).subscribe();
+    });
+  }
+
+  ////consuta avisos
+  public sendGetAvisosRequest(): Observable<any> {
+    return this.httpClient.get(this.urlBase + 'avisos', this.httpOptions);
+  }
+  ////navigate
+  public navigateTo(rota: string) {
     this.router.navigate([`/${rota}`], { relativeTo: this.route, skipLocationChange: true });
   }
-////variaveis do sistema
+  ////variaveis do sistema
   get listaCompra() {
     return this._listaCompra;
   }

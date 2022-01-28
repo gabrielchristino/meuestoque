@@ -5,42 +5,54 @@
 <div *ngIf="!isLoading" class="tela">
 
   <form class="item-form">
-    <section appearance="fill" class="item-full-width">
-      <mat-checkbox name="keyboardenable" [(ngModel)]="habilitarTeclado" color="primary">Habilitar o foco na caixa de texto automaticamente ao abrir um pop-up (maior agilidade)</mat-checkbox>
-    </section>
+    <mat-card>
+      <h4>Ao digitalizar um código de barras</h4>
+      <section appearance="fill" class="item-full-width">
+        <mat-checkbox name="keyboardenable" [(ngModel)]="habilitarTeclado" color="primary">Habilitar o foco na caixa de
+          texto automaticamente ao abrir um pop-up (maior agilidade)</mat-checkbox>
+      </section>
+      <br>
+      <section appearance="fill" class="item-full-width">
+        <mat-checkbox (change)="enableCamera(cameraSelecionada)" name="cameraenable" [(ngModel)]="habilitarCamera"
+          color="primary">Habilitar camera ao escanear códigos de barras</mat-checkbox>
+      </section>
+      <br>
+      <mat-form-field class="item-full-width" appearance="fill" *ngIf="habilitarCamera">
+        <mat-label>Veja aqui se o código está digitalizando corretamente</mat-label>
+        <input type="number" autocomplete="off" matInput disabled placeholder="Ex. 123456789" name="description"
+          [(ngModel)]="resultado">
+      </mat-form-field>
+    </mat-card>
     <br>
-    <section appearance="fill" class="item-full-width">
-      <mat-checkbox (change)="enableCamera(cameraSelecionada)"  name="cameraenable" [(ngModel)]="habilitarCamera" color="primary">Habilitar camera ao escanear códigos de barras</mat-checkbox>
-    </section>
-    <br>
-    <mat-form-field class="item-full-width" appearance="fill" *ngIf="habilitarCamera">
-      <mat-label>Veja aqui se o código está digitalizando corretamente</mat-label>
-      <input type="number" autocomplete="off" matInput
-        disabled
-        placeholder="Ex. 123456789" name="description" [(ngModel)]="resultado">
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="item-full-width" *ngIf="configuracao.cameras.length > 0">
-      <mat-label>Aqui você pode mudar a câmera para escanear os códigos ou para tirar fotos dos produtos</mat-label>
-      <mat-select [(ngModel)]="cameraSelecionada" (selectionChange)="setCamera($event)" name="camera">
-        <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera.deviceId">
-          {{camera.label}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <mat-card>
+      <h4>Configure sua câmera</h4>
+      <label class="item-full-width">Aqui você pode mudar a câmera para escanear os códigos ou para tirar fotos dos produtos</label>
+      <mat-form-field appearance="fill" class="item-full-width" *ngIf="configuracao.cameras.length > 0">
+        <mat-label>Escolha a câmera</mat-label>
+        <mat-select [(ngModel)]="cameraSelecionada" (selectionChange)="setCamera($event)" name="camera">
+          <mat-option *ngFor="let camera of configuracao.cameras" [value]="camera.deviceId">
+            {{camera.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <barcode-scanner-livestream class="item-full-width2" [config]="config" [deviceId]="cameraSelecionada"
-      [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
-    </barcode-scanner-livestream>
-
+      <barcode-scanner-livestream class="item-full-width2" [config]="config" [deviceId]="cameraSelecionada"
+        [type]="['code_128', 'code_39', 'ean_8', 'ean']" (valueChanges)="onValueChanges($event)">
+      </barcode-scanner-livestream>
+    </mat-card>
     <br>
-    <label class="item-full-width">Caso você esteja com algum problema, limpe os dados do aplicativo. Siga com cuidado!</label>
-    <button mat-raised-button color="warn" (click)="limparDados()">Limpar dados</button>
-    <br>
+    <mat-card>
+      <h4>Dados e Cache</h4>
+      <label class="item-full-width">Caso você esteja com algum problema, limpe os dados do aplicativo. Siga com
+        cuidado!</label>
+      <button mat-raised-button color="warn" (click)="limparDados()">Limpar dados</button>
+    </mat-card>
   </form>
 
 
 
   <span class="spacer"></span>
+  <br>
   <div class="buttons">
     <button mat-raised-button color="accent" (click)="salvarItem()">Salvar</button>
   </div>

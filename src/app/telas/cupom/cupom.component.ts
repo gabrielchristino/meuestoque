@@ -51,19 +51,19 @@ export class CupomComponent implements OnInit, AfterViewInit {
 
       });
 
-      htmlToImage.toPng(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
-        .then((dataUrl) => {
-          this.cupomArquivo = dataUrl;
-          (document.getElementById('print-section') || htmlVazio).innerHTML =
-            `<div id="print-section" >
-        <img src='${dataUrl}' style=
-        'margin: 0;
-        width: 100%;
-        max-width: 600px;
-        display: block;'>
-        </div>
-        `;
-        });
+      // htmlToImage.toPng(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
+      //   .then((dataUrl) => {
+      //     this.cupomArquivo = dataUrl;
+      //     (document.getElementById('print-section') || htmlVazio).innerHTML =
+      //       `<div id="print-section" >
+      //   <img src='${dataUrl}' style=
+      //   'margin: 0;
+      //   width: 100%;
+      //   max-width: 600px;
+      //   display: block;'>
+      //   </div>
+      //   `;
+      //   });
     }, 0);
 
   }
@@ -76,6 +76,16 @@ export class CupomComponent implements OnInit, AfterViewInit {
   imprimirCupom() {
     // this.estoqueService.compraFechada = true;
     // this.showError('Impresso com sucesso!', 'novaVenda');
+  }
+  enviarWA() {
+    let htmlVazio: any;
+    htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
+    .then((blobFile:any)=>{
+      this.estoqueService.salvaCupom(blobFile)
+      .subscribe((arquivoUrl:string)=>{
+        window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! ${arquivoUrl}`)}`,'_blank');
+      });
+    })
   }
   enviarEmail() {
     // let htmlVazio: any;

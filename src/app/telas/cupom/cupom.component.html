@@ -35,25 +35,27 @@
       <tr><td colspan="5" class="tdCenter"><span>{{myDate | date: 'dd-MM-yyyy hh:mm:ss a': '' : 'pt-BR'}}</span></td>
       </tr>
       <tr>
-        <td colspan="5">........................................</td>
+        <td class="tdLinha" colspan="5">........................................</td>
       </tr>
     </table>
+    <br>
   <!-- </pre> -->
   </div>
   <span class="spacer"></span>
-  <!-- <span class="linhaButton">
+  <span class="linhaButton">
     <form class="item-form">
-      <mat-form-field class="item-full-width" appearance="fill">
+      <!-- <mat-form-field class="item-full-width" appearance="fill">
         <mat-label>Email para envio</mat-label>
         <input type="email" autocomplete="off" matInput placeholder="Ex. teste@gmail.com" name="email"
           [(ngModel)]="emailCliente">
+      </mat-form-field> -->
+      <mat-form-field class="item-full-width" appearance="fill">
+        <mat-label>Telefone para envio com DDD+Número</mat-label>
+        <input type="number" autocomplete="off" matInput placeholder="Ex. 11999998888" name="email"
+          [(ngModel)]="telefoneCliente">
       </mat-form-field>
     </form>
   </span>
-  <span class="linhaButton">
-    <button mat-raised-button color="primary" (click)="enviarEmail()">Enviar Email</button>
-    <button mat-raised-button color="primary" [useExistingCss]="true" printSectionId="print-section" ngxPrint
-      (click)="imprimirCupom()">Imprimir</button>
-  </span> -->
+  <button mat-raised-button color="primary" (click)="enviarWA()">Enviar Whatsapp</button>
 
 </div>
