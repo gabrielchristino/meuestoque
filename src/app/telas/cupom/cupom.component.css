@@ -29,7 +29,7 @@ th {
   /* border-bottom: 1px dotted black; */
 }
 .tdCenter {
-  text-align: center;
+  /* text-align: center; */
   padding: 0px;
 }
 .tdLeft {
@@ -40,10 +40,10 @@ th {
   text-align: right;
   padding: 0px;
 }
-td {
+/* td {
   padding: 2px;
   text-align: right;
-}
+} */
 .spacer {
   flex: 1 1 auto;
 }

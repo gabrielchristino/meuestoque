@@ -1,0 +1,53 @@
+<div class="loadingSet" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="!isLoading" class="tela">
+  <mat-accordion>
+    <!-- cabecalho vazio -->
+    <mat-expansion-panel hideToggle *ngIf="vendas.length == 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Não há vendas a serem exibidas
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        Faça sua primeira venda e ela aparecerá aqui!
+      </ng-template>
+    </mat-expansion-panel>
+
+    <!-- cabecalho -->
+    <mat-expansion-panel hideToggle *ngIf="vendas.length > 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Data e Hora
+        </mat-panel-title>
+        <mat-panel-description>
+          Valor da venda
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        Abaixo você pode ver o cupom completo de cada venda realizada e o email do vendedor
+      </ng-template>
+    </mat-expansion-panel>
+
+    <!-- data hora e valor -->
+    <mat-expansion-panel *ngFor="let venda of vendas">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{venda.datahora | date: 'dd MMMM yyyy HH:mm': '' : 'pt-BR'}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{' R$' + venda.valorvenda.toFixed(2)}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- cupom -->
+      <ng-template matExpansionPanelContent>
+        Vendedor {{venda.vendedor}}
+        <div class="noFormat">
+        {{substr(venda.cupom)}}
+      </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

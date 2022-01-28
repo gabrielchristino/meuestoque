@@ -13,6 +13,7 @@
       <button mat-menu-item aria-label="abrir menu estoque" [matMenuTriggerFor]="estoqueMenu">Estoque</button>
       <button mat-menu-item aria-label="fazer nova venda" matTooltip="Inicie uma nova venda" (click)="estoqueService.navigateTo('novaVenda')">Nova venda</button>
       <button mat-menu-item aria-label="consultar preço" matTooltip="Consulte o preço de um produto" (click)="exibirAlerta()">Consulta preço</button>
+      <button mat-menu-item aria-label="listar vendas" matTooltip="Veja suas vendas" (click)="estoqueService.navigateTo('vendas')">Exibir vendas</button>
       <mat-divider></mat-divider>
       <button mat-menu-item aria-label="meu cadastro" matTooltip="Altere seu cadastro" (click)="estoqueService.navigateTo('cadastro')">Meu cadastro</button>
       <button mat-menu-item aria-label="configurações" matTooltip="Acesse suas configurações, você pode alterar a câmera por exemplo" (click)="estoqueService.navigateTo('configuracao')">Configurações</button>

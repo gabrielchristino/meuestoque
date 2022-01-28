@@ -103,6 +103,9 @@ export class EstoqueService {
     return this.httpClient.post(this.urlBase + 'loja', JSON.stringify(loja), this.httpOptions);
   }
   ////consulta vendas
+  public sendGetVendasRequest(): Observable<any> {
+    return this.httpClient.get(this.urlBase + 'vendas' + `?q={"loja":"${this.usuario.idLoja}"}`, this.httpOptions);
+  }
   public sendPostVendasRequest(venda: venda): Observable<any> {
     return this.httpClient.post(this.urlBase + 'vendas', JSON.stringify(venda), this.httpOptions);
   }

@@ -157,6 +157,19 @@ export class CupomComponent implements OnInit, AfterViewInit {
     }
     return String(texto);
   }
+
+  substringCenter(texto: string, tamanho: number) {
+    if (String(texto).length > tamanho) {
+      return String(texto).substring(0, tamanho)
+    }
+    const metade: number = (tamanho - String(texto).length)/2;
+    const total: number = metade + String(texto).length;
+    while ( String(texto).length < total ) {
+      texto = " " + texto;
+    }
+    return String(texto);
+  }
+
   substringNumber(texto: string, tamanho: number) {
     texto = String(Number(texto).toFixed(2));
     if (String(texto).length > tamanho) {

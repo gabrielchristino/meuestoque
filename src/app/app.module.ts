@@ -66,6 +66,7 @@ import { ConfiguracaoComponent } from './telas/configuracao/configuracao.compone
 
 import { CookieService } from 'ngx-cookie-service';
 import { DialogPhotoComponent } from './dialog/dialog-photo/dialog-photo.component';
+import { ExibirVendasComponent } from './telas/exibir-vendas/exibir-vendas.component';
 registerLocaleData(localePT);
 
 @NgModule({
@@ -86,7 +87,8 @@ registerLocaleData(localePT);
     CadastroUsuarioLojaComponent,
     DialogQrcodeComponent,
     ConfiguracaoComponent,
-    DialogPhotoComponent
+    DialogPhotoComponent,
+    ExibirVendasComponent
   ],
   imports: [
 
