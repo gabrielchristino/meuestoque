@@ -74,6 +74,6 @@ export class AppComponent implements OnInit {
   }
 
   logOut(): void {
-    this.socialAuthService.signOut();
+    this.estoqueService.socialAuthServiceLogOut();
   }
 }

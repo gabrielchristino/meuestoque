@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocialAuthService } from 'angularx-social-login';
 import { DialogErrorComponent } from '../dialog/dialog-error/dialog-error.component';
+import { EstoqueService } from './estoque.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class UtilsService {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private estoqueService: EstoqueService
   ) { }
 
 
@@ -32,7 +34,7 @@ export class UtilsService {
         }
         if (data && novaRota === 'logoff') {
           // this.auth.logout();
-          this.socialAuthService.signOut();
+          this.estoqueService.socialAuthServiceLogOut();
         }
       });
   }

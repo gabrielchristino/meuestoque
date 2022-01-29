@@ -39,17 +39,25 @@ export class CupomComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       let htmlVazio: any;
+      const dataHora: number = Number(Date.now());
       const vendaRequest: venda = {
         loja: this.estoqueService.usuario.idLoja,
-        datahora: String(new Date()),
+        datahora: dataHora,
         vendedor: this.estoqueService.user.email,
         cupom: String(document.getElementById('print-section')?.innerText),
         valorvenda: this.valorTotal
       }
       this.estoqueService.sendPostVendasRequest(vendaRequest)
-      .subscribe((venda)=>{
-
-      });
+        .subscribe((venda) => {
+          let htmlVazio: any;
+          htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio, { backgroundColor: 'white' })
+            .then((blobFile: any) => {
+              this.estoqueService.salvaCupom(blobFile, String(dataHora) || '')
+                .subscribe((arquivoUrl: string) => {
+                  this.cupomArquivo = arquivoUrl;
+                });
+            })
+        });
 
       // htmlToImage.toPng(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
       //   .then((dataUrl) => {
@@ -73,16 +81,11 @@ export class CupomComponent implements OnInit, AfterViewInit {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
   }
+
   enviarWA() {
-    let htmlVazio: any;
-    htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
-    .then((blobFile:any)=>{
-      this.estoqueService.salvaCupom(blobFile)
-      .subscribe((arquivoUrl:string)=>{
-        window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! Ele ficará disponível por 30 dias\n${arquivoUrl}`)}`,'_blank');
-      });
-    })
+    window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! Ele ficará disponível por 30 dias\n${this.cupomArquivo}`)}`, '_blank');
   }
+
   enviarEmail() {
     let htmlVazio: any;
     // const filesArray = [
@@ -97,7 +100,7 @@ export class CupomComponent implements OnInit, AfterViewInit {
     // ];
     const shareData = {
       title: 'Cupom',
-      text: String(document.getElementById('print-section')?.innerText),
+      text: 'Olá segue seu cupom! Ele ficará disponível por 30 dias\n' + String(document.getElementById('print-section')?.innerText) + '\n' + this.cupomArquivo,
     };
     navigator.share(shareData);
 
@@ -129,7 +132,6 @@ export class CupomComponent implements OnInit, AfterViewInit {
   }
 
   exibirAlerta(resultado: string) {
-    this.isLoading = true;
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -157,9 +159,9 @@ export class CupomComponent implements OnInit, AfterViewInit {
     if (String(texto).length > tamanho) {
       return String(texto).substring(0, tamanho)
     }
-    const metade: number = (tamanho - String(texto).length)/2;
+    const metade: number = (tamanho - String(texto).length) / 2;
     const total: number = metade + String(texto).length;
-    while ( String(texto).length < total ) {
+    while (String(texto).length < total) {
       texto = " " + texto;
     }
     return String(texto);
@@ -190,14 +192,14 @@ export class CupomComponent implements OnInit, AfterViewInit {
     return cpf.length < 12 ? cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") : cpf.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
   }
 
-  removeAcento (texto:string):string {
+  removeAcento(texto: string): string {
     texto = texto.toLowerCase();
-    texto = texto.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
-    texto = texto.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
-    texto = texto.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
-    texto = texto.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
-    texto = texto.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
-    texto = texto.replace(new RegExp('[Ç]','gi'), 'c');
+    texto = texto.replace(new RegExp('[ÁÀÂÃ]', 'gi'), 'a');
+    texto = texto.replace(new RegExp('[ÉÈÊ]', 'gi'), 'e');
+    texto = texto.replace(new RegExp('[ÍÌÎ]', 'gi'), 'i');
+    texto = texto.replace(new RegExp('[ÓÒÔÕ]', 'gi'), 'o');
+    texto = texto.replace(new RegExp('[ÚÙÛ]', 'gi'), 'u');
+    texto = texto.replace(new RegExp('[Ç]', 'gi'), 'c');
     return texto;
-}
+  }
 }

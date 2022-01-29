@@ -42,10 +42,13 @@
     </mat-card>
     <br>
     <mat-card>
-      <h4>Dados e Cache</h4>
-      <label class="item-full-width">Caso você esteja com algum problema, limpe os dados do aplicativo. Siga com
-        cuidado!</label>
+      <h4>Dados, Cache e Conta</h4>
+      <label class="item-full-width">Limpar o cache do aplicativo</label>
       <button mat-raised-button color="warn" (click)="limparDados()">Limpar dados</button>
+      <br>
+
+      <label class="item-full-width">Apagar minha conta e loja. Atenção, não pode ser desfeito, todos os seus dados serão perdidos</label>
+      <button mat-raised-button color="warn" (click)="apagarConta()">Apagar conta</button>
     </mat-card>
   </form>
 

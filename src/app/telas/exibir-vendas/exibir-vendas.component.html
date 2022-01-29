@@ -37,14 +37,14 @@
           {{venda.datahora | date: 'dd MMMM yyyy HH:mm': '' : 'pt-BR'}}
         </mat-panel-title>
         <mat-panel-description>
-          {{' R$' + venda.valorvenda.toFixed(2)}}
+          {{' R$' + venda.valorvenda?.toFixed(2)}}
         </mat-panel-description>
       </mat-expansion-panel-header>
 
       <!-- cupom -->
       <ng-template matExpansionPanelContent>
         Vendedor {{venda.vendedor}}
-        <div class="noFormat" id="print-section">
+        <div class="noFormat" [id]="'print-section'+venda.datahora">
           {{substr(venda.cupom)}}
         </div>
 
@@ -56,7 +56,7 @@
                 [(ngModel)]="telefoneCliente">
             </mat-form-field>
           </form>
-          <button mat-mini-fab color="primary" [disabled]="!telefoneCliente" (click)="enviarWA()">
+          <button mat-mini-fab color="primary" [disabled]="!telefoneCliente" (click)="enviarWA(venda)">
             <mat-icon>whatsapp</mat-icon>
           </button>
         </span>

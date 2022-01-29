@@ -42,7 +42,7 @@
   <!-- </pre> -->
   </div>
   <span class="spacer"></span>
-  <span class="linhaButton">
+  <span class="linhaButton"  *ngIf="cupomArquivo">
     <form class="item-form">
       <mat-form-field class="item-full-width2" appearance="fill">
         <mat-label>Telefone para envio com DDD+Número</mat-label>
@@ -50,15 +50,19 @@
           [(ngModel)]="telefoneCliente">
       </mat-form-field>
     </form>
-    <button mat-mini-fab color="primary" [disabled]="!telefoneCliente" (click)="enviarWA()">
+    <button mat-mini-fab color="primary" [disabled]="!(telefoneCliente)" (click)="enviarWA()">
       <mat-icon>whatsapp</mat-icon>
     </button>
   </span>
-  <span class="linhaButton">
+  <span class="linhaButton2" *ngIf="cupomArquivo">
+    <label>Outros meios de compartilhamento</label>
     <button mat-mini-fab color="primary" (click)="enviarEmail()">
       <mat-icon>share</mat-icon>
     </button>
   </span>
+  <div class="loadingSet" *ngIf="!cupomArquivo">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
 
   <!-- <span class="spacer"></span>
   <span class="linhaButton">

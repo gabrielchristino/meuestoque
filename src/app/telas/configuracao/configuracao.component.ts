@@ -159,4 +159,61 @@ export class ConfiguracaoComponent implements OnInit, AfterViewInit {
   onValueChanges(result: any) {
     this.resultado = result.codeResult.code;
   }
+
+  apagarConta() {
+    try {
+      this.isLoading = true;
+      const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      const dialogRef = this.dialog.open(DialogConfirmComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(
+        data => {
+          if (data) {
+            this.apagarLoja();
+          } else {
+            this.isLoading = false;
+          }
+        }
+      );
+    } catch (e) {
+      this.utilsService.showError(String(e));
+    }
+  }
+
+  apagarLoja() {
+    this.estoqueService.sendDeleteLojaRequest()
+      .subscribe((loja: any) => {
+        this.apagarEstoque();
+      });
+  }
+
+  apagarEstoque() {
+    this.estoqueService.sendGetRequest()
+      .subscribe((itensEstoque: any[]) => {
+        if (itensEstoque.length > 0) {
+          this.estoqueService.sendDeleteEstoqueRequest()
+            .subscribe((estoque: any) => {
+              this.apagarUsuario();
+            });
+        } else {
+          this.apagarUsuario();
+        }
+      });
+  }
+
+  apagarUsuario() {
+    this.estoqueService.sendDeleteUserRequest()
+      .subscribe((usuario: any) => {
+        this.estoqueService.cookieCamera = '';
+        this.estoqueService.habilitarCamera = '';
+        this.estoqueService.habilitarTeclado = '';
+        this.estoqueService.avisosLidos = '';
+        this.isLoading = false;
+        location.reload();
+        this.estoqueService.socialAuthServiceRevoke();
+      });
+  }
 }

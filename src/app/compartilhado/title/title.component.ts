@@ -37,6 +37,6 @@ export class TitleComponent implements OnInit {
 
   lougout() {
     // this.auth.logout({ returnTo: document.location.origin });
-    this.socialAuthService.signOut();
+    this.estoqueService.socialAuthServiceLogOut();
   }
 }

@@ -28,7 +28,7 @@ export class CadastroUsuarioLojaComponent implements OnInit {
   ngOnInit(): void {
     this.dadosUsuario.name = this.estoqueService.user.name;
     this.dadosUsuario.email = this.estoqueService.user.email;
-    this.dadosUsuario._id = this.estoqueService.usuario._id;
+    this.dadosUsuario._id = this.estoqueService.usuario?._id;
 
     this.dadosLoja = this.estoqueService.loja !== undefined ? this.estoqueService.loja : new loja;
 
@@ -79,6 +79,7 @@ export class CadastroUsuarioLojaComponent implements OnInit {
           this.estoqueService.sendPutUserRequest(this.dadosUsuario)
             .subscribe((usuario) => {
               this.isLoading = false;
+              location.reload();
               this.utilsService.showError('Cadastro Atualizado com sucesso.', 'logoff');
             });
         });
@@ -87,6 +88,7 @@ export class CadastroUsuarioLojaComponent implements OnInit {
       this.estoqueService.sendPostUserRequest(this.dadosUsuario)
         .subscribe((usuario) => {
           this.isLoading = false;
+          location.reload();
           this.utilsService.showError('Usuário cadastrado com sucesso! Faça seu login novamente para confirmar.', 'logoff');
         });
     } else {
@@ -96,6 +98,7 @@ export class CadastroUsuarioLojaComponent implements OnInit {
           this.estoqueService.sendPostUserRequest(this.dadosUsuario)
             .subscribe((usuario) => {
               this.isLoading = false;
+              location.reload();
               this.utilsService.showError('Usuário cadastrado com sucesso! Faça seu login novamente para confirmar.', 'logoff');
             });
         });

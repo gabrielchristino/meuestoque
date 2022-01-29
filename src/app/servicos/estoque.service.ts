@@ -10,6 +10,7 @@ import { usuario } from '../compartilhado/models/usuario.model';
 import { venda } from '../compartilhado/models/venda.model';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { SocialAuthService } from 'angularx-social-login';
 
 export const APP_ID = "estoque-vnaxc";
 
@@ -45,7 +46,8 @@ export class EstoqueService {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private socialAuthService: SocialAuthService
   ) { }
   ////consuta estoque
   public sendGetRequest(): Observable<any> {
@@ -58,6 +60,10 @@ export class EstoqueService {
 
   public sendDeleteRequest(idProduto: string): Observable<any> {
     return this.httpClient.delete(this.urlBase + 'estoque' + `/${idProduto}`, this.httpOptions);
+  }
+
+  public sendDeleteEstoqueRequest(): Observable<any> {
+    return this.httpClient.delete(this.urlBase + 'estoque' + `/*?q={"idLoja":"${this.usuario.idLoja}"}`, this.httpOptions);
   }
 
   public sendPutRequest(produto: estoqueItens): Observable<any> {
@@ -83,6 +89,10 @@ export class EstoqueService {
     return this.httpClient.get(this.urlBase + 'controle' + `?q={"email":"${userMail}"}`, this.httpOptions);
   }
 
+  public sendDeleteUserRequest(): Observable<any> {
+    return this.httpClient.delete(this.urlBase + 'controle' + `/${this.usuario._id}`, this.httpOptions);
+  }
+
   public sendPutUserRequest(usuario: usuario): Observable<any> {
     return this.httpClient.put(this.urlBase + 'controle' + `/${usuario._id}`, JSON.stringify(usuario), this.httpOptions);
   }
@@ -102,6 +112,10 @@ export class EstoqueService {
   public sendPostLojaRequest(loja: loja): Observable<any> {
     return this.httpClient.post(this.urlBase + 'loja', JSON.stringify(loja), this.httpOptions);
   }
+
+  public sendDeleteLojaRequest(): Observable<any> {
+    return this.httpClient.delete(this.urlBase + 'loja' + `/${this.usuario?.idLoja}`, this.httpOptions);
+  }
   ////consulta vendas
   public sendGetVendasRequest(): Observable<any> {
     return this.httpClient.get(this.urlBase + 'vendas' + `?q={"loja":"${this.usuario.idLoja}"}`, this.httpOptions);
@@ -110,19 +124,33 @@ export class EstoqueService {
     return this.httpClient.post(this.urlBase + 'vendas', JSON.stringify(venda), this.httpOptions);
   }
 
-  public salvaCupom(cupom: any): Observable<any> {
+  public salvaCupom(cupom: any, myDate: string): Observable<any> {
     return new Observable((observer) => {
+      const fileRef: AngularFireStorageReference = this.fireStorage.ref("lojas").child(this.usuario.idLoja).child(String(myDate));
+      const task: AngularFireUploadTask = fileRef.put(cupom);
 
-    const fileRef: AngularFireStorageReference = this.fireStorage.ref("lojas").child(this.usuario.idLoja);
-    const task: AngularFireUploadTask = fileRef.put(cupom);
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe(downloadURL => {
-          observer.next(downloadURL);
-          observer.complete();
-        });
-      })
-    ).subscribe();
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(downloadURL => {
+            observer.next(downloadURL);
+            observer.complete();
+          });
+        })
+      ).subscribe();
+    });
+  }
+
+  public getCupom(myDate: string): Observable<any> {
+    return new Observable((observer) => {
+      const fileRef: AngularFireStorageReference = this.fireStorage.ref("lojas").child(this.usuario.idLoja).child(String(myDate));
+
+      fileRef.getDownloadURL().subscribe(downloadURL => {
+        observer.next(downloadURL);
+        observer.complete();
+      }, (error: any) => {
+        observer.error(error);
+        observer.complete();
+      });
     });
   }
 
@@ -213,5 +241,15 @@ export class EstoqueService {
   set avisosLidos(avisosLidos: any) {
     localStorage.setItem('avisosLidos', avisosLidos);
     this._avisosLidos = this._avisosLidos = localStorage.getItem('avisosLidos');
+  }
+
+
+  //auth
+  socialAuthServiceLogOut(): void {
+    this.socialAuthService.signOut();
+    location.reload();
+  }
+  socialAuthServiceRevoke(): void {
+    this.socialAuthService.signOut(true);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { EstoqueService } from 'src/app/servicos/estoque.service';
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +18,8 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private estoqueService: EstoqueService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +34,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   logOut(): void {
-    this.socialAuthService.signOut();
+    this.estoqueService.socialAuthServiceLogOut();
   }
 }

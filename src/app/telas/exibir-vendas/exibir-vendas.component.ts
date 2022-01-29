@@ -23,32 +23,39 @@ export class ExibirVendasComponent implements OnInit {
     private estoqueService: EstoqueService,
     public dialog: MatDialog,
     private utilsService: UtilsService
-    ) { }
+  ) { }
 
 
 
   ngOnInit(): void {
     this.isLoading = true;
     this.estoqueService.sendGetVendasRequest()
-    .subscribe((vendas:venda[])=>{
-      this.vendas = vendas;
-      this.isLoading = false;
-    });
-  }
-
-  substr(valor:String = ' sem cupom'): String {
-    return String(valor).substring(0,1) === ' ' ? String(valor).substring(1) : String(valor);
-  }
-
-  enviarWA() {
-    let htmlVazio: any;
-    htmlToImage.toBlob(document.getElementById('print-section') || htmlVazio, {backgroundColor:'white'})
-    .then((blobFile:any)=>{
-      this.estoqueService.salvaCupom(blobFile)
-      .subscribe((arquivoUrl:string)=>{
-        window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! Ele ficará disponível por 30 dias\n${arquivoUrl}`)}`,'_blank');
+      .subscribe((vendas: venda[]) => {
+        this.vendas = vendas;
+        this.isLoading = false;
       });
-    })
+  }
+
+  substr(valor: String = ' sem cupom'): String {
+    return String(valor).substring(0, 1) === ' ' ? String(valor).substring(1) : String(valor);
+  }
+
+  enviarWA(venda: venda) {
+
+    this.estoqueService.getCupom(String(venda.datahora))
+      .subscribe((downloadUrl: string) => {
+        // const arquivoUrl: string = `https://firebasestorage.googleapis.com/v0/b/meuestoque-7f9dc.appspot.com/o/lojas%2F${String(venda.loja)}%2F${String(venda.datahora)}?alt=media`;
+        window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! Ele ficará disponível por 30 dias\n${downloadUrl}`)}`, '_blank');
+      }, (error: any) => {
+        let htmlVazio: any;
+        htmlToImage.toBlob(document.getElementById('print-section'+String(venda.datahora)) || htmlVazio, { backgroundColor: 'white' })
+          .then((blobFile: any) => {
+            this.estoqueService.salvaCupom(blobFile, String(venda.datahora))
+              .subscribe((downloadUrl: string) => {
+                window.open(`https://api.whatsapp.com/send?phone=55${this.telefoneCliente}&text=${encodeURI(`Olá segue seu cupom! Ele ficará disponível por 30 dias\n${downloadUrl}`)}`, '_blank');
+              });
+          });
+      });
   }
 
   compartilhar() {
