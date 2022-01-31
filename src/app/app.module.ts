@@ -64,7 +64,6 @@ import { DialogQrcodeComponent } from './dialog/dialog-qrcode/dialog-qrcode.comp
 import { QrCodeModule } from 'ng-qrcode';
 import { ConfiguracaoComponent } from './telas/configuracao/configuracao.component';
 
-import { CookieService } from 'ngx-cookie-service';
 import { DialogPhotoComponent } from './dialog/dialog-photo/dialog-photo.component';
 import { ExibirVendasComponent } from './telas/exibir-vendas/exibir-vendas.component';
 registerLocaleData(localePT);
@@ -139,7 +138,6 @@ registerLocaleData(localePT);
 
   ],
   providers: [
-    CookieService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

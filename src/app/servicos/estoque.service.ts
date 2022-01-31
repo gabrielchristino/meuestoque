@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { estoqueItens } from '../compartilhado/models/estoqueItens.model';
 import { loja } from '../compartilhado/models/loja.model';
@@ -46,7 +45,6 @@ export class EstoqueService {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private cookieService: CookieService,
     private socialAuthService: SocialAuthService
   ) { }
   ////consuta estoque
