@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     private socialAuthService: SocialAuthService
   ) {
   }
-  title = 'estoque';
+  title = 'onstock';
   isAuthenticated: boolean = false;
 
   ngOnInit(): void {
